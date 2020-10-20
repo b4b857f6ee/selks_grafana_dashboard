@@ -1,4 +1,49 @@
 {
+  "__inputs": [],
+  "__requires": [
+    {
+      "type": "datasource",
+      "id": "elasticsearch",
+      "name": "Elasticsearch",
+      "version": "1.0.0"
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "7.2.1"
+    },
+    {
+      "type": "panel",
+      "id": "grafana-piechart-panel",
+      "name": "Pie Chart",
+      "version": "1.3.9"
+    },
+    {
+      "type": "panel",
+      "id": "grafana-worldmap-panel",
+      "name": "Worldmap Panel",
+      "version": "0.2.1"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -15,8 +60,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 70,
-  "iteration": 1603219667731,
+  "id": null,
+  "iteration": 1603222689774,
   "links": [],
   "panels": [
     {
@@ -70,6 +115,7 @@
           "alias": "",
           "bucketAggs": [
             {
+              "$$hashKey": "object:11591",
               "fake": true,
               "field": "@timestamp",
               "id": "3",
@@ -84,6 +130,7 @@
           "hide": false,
           "metrics": [
             {
+              "$$hashKey": "object:11589",
               "field": "even",
               "id": "1",
               "meta": {},
@@ -91,19 +138,122 @@
               "type": "count"
             }
           ],
-          "query": "logstash-sip-* AND event_type:sip",
+          "query": "logstash-ikev2-*",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-SIP-Total",
+      "title": "SN-IKEv2-Total",
       "type": "stat"
     },
     {
+      "circleMaxSize": 30,
+      "circleMinSize": 2,
+      "colors": [
+        "#FADE2A",
+        "#FADE2A",
+        "#F2495C"
+      ],
+      "datasource": "$elasticsearch",
+      "decimals": 0,
+      "esGeoPoint": "geoip.location",
+      "esLocationName": "",
+      "esMetric": "Count",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "left",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "num"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 17,
+        "w": 12,
+        "x": 0,
+        "y": 5
+      },
+      "hideEmpty": false,
+      "hideZero": false,
+      "id": 4,
+      "initialZoom": 1,
+      "locationData": "geohash",
+      "mapCenter": "(0°, 0°)",
+      "mapCenterLatitude": 0,
+      "mapCenterLongitude": 0,
+      "maxDataPoints": 1,
+      "mouseWheelZoom": false,
+      "pluginVersion": "7.2.1",
+      "showLegend": true,
+      "stickyLabels": false,
+      "tableQueryOptions": {
+        "geohashField": "geohash",
+        "latitudeField": "latitude",
+        "longitudeField": "longitude",
+        "metricField": "metric",
+        "queryType": "geohash"
+      },
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "fake": true,
+              "field": "geoip.location",
+              "id": "3",
+              "settings": {
+                "precision": 3
+              },
+              "type": "geohash_grid"
+            }
+          ],
+          "hide": false,
+          "metrics": [
+            {
+              "field": "even",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "count"
+            }
+          ],
+          "query": "logstash-ikev2-*",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "thresholds": "0,2",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "SN-IKEv2-GeoIP",
+      "transparent": true,
+      "type": "grafana-worldmap-panel",
+      "unitPlural": "",
+      "unitSingle": "",
+      "unitSingular": "",
+      "valueName": "total"
+    },
+    {
       "aliasColors": {},
-      "bars": false,
+      "bars": true,
       "dashLength": 10,
       "dashes": false,
       "datasource": "$elasticsearch",
@@ -131,12 +281,12 @@
         },
         "overrides": []
       },
-      "fill": 0,
+      "fill": 10,
       "fillGradient": 0,
       "gridPos": {
-        "h": 13,
-        "w": 24,
-        "x": 0,
+        "h": 17,
+        "w": 12,
+        "x": 12,
         "y": 5
       },
       "hiddenSeries": false,
@@ -154,7 +304,7 @@
         "total": false,
         "values": false
       },
-      "lines": true,
+      "lines": false,
       "linewidth": 2,
       "nullPointMode": "null",
       "options": {
@@ -163,7 +313,7 @@
       "percentage": false,
       "pluginVersion": "7.2.1",
       "pointradius": 2,
-      "points": true,
+      "points": false,
       "renderer": "flot",
       "seriesOverrides": [],
       "spaceLength": 10,
@@ -173,6 +323,20 @@
         {
           "alias": "",
           "bucketAggs": [
+            {
+              "fake": true,
+              "id": "6",
+              "query": "*",
+              "settings": {
+                "filters": [
+                  {
+                    "label": "",
+                    "query": "IKEv2"
+                  }
+                ]
+              },
+              "type": "filters"
+            },
             {
               "fake": true,
               "field": "@timestamp",
@@ -195,7 +359,7 @@
               "type": "count"
             }
           ],
-          "query": "logstash-sip-* AND event_type:sip",
+          "query": "logstash-ikev2-*",
           "refId": "A",
           "timeField": "@timestamp"
         }
@@ -212,7 +376,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "SN-SIP-EventsOverTime",
+      "title": "SN-IKEv2-EventsOverTime",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -287,10 +451,10 @@
         ]
       },
       "gridPos": {
-        "h": 11,
-        "w": 12,
+        "h": 10,
+        "w": 8,
         "x": 0,
-        "y": 18
+        "y": 22
       },
       "id": 17,
       "options": {
@@ -303,14 +467,15 @@
           "alias": "",
           "bucketAggs": [
             {
+              "$$hashKey": "object:11609",
               "fake": true,
               "field": "src_ip.keyword",
               "id": "9",
               "settings": {
                 "min_doc_count": "1",
                 "order": "desc",
-                "orderBy": "_term",
-                "size": "100"
+                "orderBy": "_count",
+                "size": "20"
               },
               "type": "terms"
             }
@@ -318,6 +483,7 @@
           "hide": false,
           "metrics": [
             {
+              "$$hashKey": "object:11607",
               "field": "alert.signature.keyword",
               "id": "1",
               "meta": {},
@@ -325,14 +491,14 @@
               "type": "count"
             }
           ],
-          "query": "logstash-sip-* AND event_type:sip",
+          "query": "logstash-ikev2-*",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-SIP-Top100SrcIP",
+      "title": "SN-IKEv2-Top20SrcIP",
       "transformations": [
         {
           "id": "organize",
@@ -388,12 +554,111 @@
         ]
       },
       "gridPos": {
-        "h": 11,
-        "w": 12,
-        "x": 12,
-        "y": 18
+        "h": 10,
+        "w": 4,
+        "x": 8,
+        "y": 22
       },
       "id": 40,
+      "options": {
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "7.2.1",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "fake": true,
+              "field": "src_port",
+              "id": "9",
+              "settings": {
+                "min_doc_count": "1",
+                "order": "desc",
+                "orderBy": "_count",
+                "size": "20"
+              },
+              "type": "terms"
+            }
+          ],
+          "hide": false,
+          "metrics": [
+            {
+              "field": "alert.signature.keyword",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "count"
+            }
+          ],
+          "query": "logstash-ikev2-*",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "SN-IKEv2-Top20SrcPort",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {
+              "Count": 1,
+              "src_port": 0
+            },
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": "$elasticsearch",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "left",
+            "displayMode": "color-text",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "alert.signature.keyword"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 493
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 12,
+        "y": 22
+      },
+      "id": 41,
       "options": {
         "showHeader": true,
         "sortBy": []
@@ -410,8 +675,8 @@
               "settings": {
                 "min_doc_count": "1",
                 "order": "desc",
-                "orderBy": "_term",
-                "size": "100"
+                "orderBy": "_count",
+                "size": "20"
               },
               "type": "terms"
             }
@@ -426,14 +691,14 @@
               "type": "count"
             }
           ],
-          "query": "logstash-sip-* AND event_type:sip",
+          "query": "logstash-ikev2-*",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-SIP-Top100DestIP",
+      "title": "SN-IKEv2-Top20DestIP",
       "transformations": [
         {
           "id": "organize",
@@ -487,210 +752,10 @@
         ]
       },
       "gridPos": {
-        "h": 11,
-        "w": 6,
-        "x": 0,
-        "y": 29
-      },
-      "id": 41,
-      "options": {
-        "showHeader": true,
-        "sortBy": []
-      },
-      "pluginVersion": "7.2.1",
-      "targets": [
-        {
-          "alias": "",
-          "bucketAggs": [
-            {
-              "fake": true,
-              "field": "src_port",
-              "id": "9",
-              "settings": {
-                "min_doc_count": "1",
-                "order": "asc",
-                "orderBy": "_term",
-                "size": "100"
-              },
-              "type": "terms"
-            }
-          ],
-          "hide": false,
-          "metrics": [
-            {
-              "field": "alert.signature.keyword",
-              "id": "1",
-              "meta": {},
-              "settings": {},
-              "type": "count"
-            }
-          ],
-          "query": "logstash-sip-* AND event_type:sip",
-          "refId": "A",
-          "timeField": "@timestamp"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "SN-SIP-Top100SrcPort",
-      "transformations": [
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {},
-            "indexByName": {
-              "Count": 1,
-              "src_port": 0
-            },
-            "renameByName": {}
-          }
-        }
-      ],
-      "type": "table"
-    },
-    {
-      "aliasColors": {},
-      "breakPoint": "50%",
-      "cacheTimeout": null,
-      "combine": {
-        "label": "",
-        "threshold": 0
-      },
-      "datasource": "$elasticsearch",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "left",
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "string"
-        },
-        "overrides": []
-      },
-      "fontSize": "100%",
-      "format": "short",
-      "gridPos": {
-        "h": 11,
-        "w": 12,
-        "x": 6,
-        "y": 29
-      },
-      "id": 5,
-      "interval": null,
-      "legend": {
-        "percentage": true,
-        "show": true,
-        "sideWidth": 150,
-        "values": false
-      },
-      "legendType": "On graph",
-      "links": [],
-      "maxDataPoints": 3,
-      "nullPointMode": "connected",
-      "pieType": "pie",
-      "pluginVersion": "7.2.1",
-      "strokeWidth": "1",
-      "targets": [
-        {
-          "alias": "",
-          "bucketAggs": [
-            {
-              "fake": true,
-              "field": "sip.version.keyword",
-              "id": "4",
-              "settings": {
-                "min_doc_count": "1",
-                "order": "desc",
-                "orderBy": "_count",
-                "size": "5"
-              },
-              "type": "terms"
-            },
-            {
-              "fake": true,
-              "field": "@timestamp",
-              "id": "3",
-              "settings": {
-                "interval": "auto",
-                "min_doc_count": 0,
-                "trimEdges": 0
-              },
-              "type": "date_histogram"
-            }
-          ],
-          "hide": false,
-          "metrics": [
-            {
-              "field": "even",
-              "id": "1",
-              "meta": {},
-              "settings": {},
-              "type": "count"
-            }
-          ],
-          "query": "logstash-sip-* AND event_type:sip",
-          "refId": "A",
-          "timeField": "@timestamp"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "SN-SIP-SipVersion",
-      "type": "grafana-piechart-panel",
-      "valueName": "total"
-    },
-    {
-      "datasource": "$elasticsearch",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "left",
-            "displayMode": "color-text",
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "alert.signature.keyword"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 493
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 11,
-        "w": 6,
-        "x": 18,
-        "y": 29
+        "h": 10,
+        "w": 4,
+        "x": 20,
+        "y": 22
       },
       "id": 42,
       "options": {
@@ -709,8 +774,8 @@
               "settings": {
                 "min_doc_count": "1",
                 "order": "desc",
-                "orderBy": "_term",
-                "size": "100"
+                "orderBy": "_count",
+                "size": "20"
               },
               "type": "terms"
             }
@@ -725,14 +790,14 @@
               "type": "count"
             }
           ],
-          "query": "logstash-sip-* AND event_type:sip",
+          "query": "logstash-ikev2-*",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-SIP-Top100DestPort",
+      "title": "SN-IKEv2-Top20DestPort",
       "transformations": [
         {
           "id": "organize",
@@ -777,116 +842,15 @@
         },
         "overrides": []
       },
-      "fontSize": "100%",
+      "fontSize": "80%",
       "format": "short",
       "gridPos": {
-        "h": 11,
+        "h": 13,
         "w": 12,
         "x": 0,
-        "y": 40
+        "y": 32
       },
-      "id": 45,
-      "interval": null,
-      "legend": {
-        "percentage": true,
-        "show": true,
-        "sideWidth": 150,
-        "values": false
-      },
-      "legendType": "On graph",
-      "links": [],
-      "maxDataPoints": 3,
-      "nullPointMode": "connected",
-      "pieType": "pie",
-      "pluginVersion": "7.2.1",
-      "strokeWidth": "1",
-      "targets": [
-        {
-          "alias": "",
-          "bucketAggs": [
-            {
-              "fake": true,
-              "field": "sip.code.keyword",
-              "id": "4",
-              "settings": {
-                "min_doc_count": "1",
-                "order": "desc",
-                "orderBy": "_count",
-                "size": "5"
-              },
-              "type": "terms"
-            },
-            {
-              "fake": true,
-              "field": "@timestamp",
-              "id": "3",
-              "settings": {
-                "interval": "auto",
-                "min_doc_count": 0,
-                "trimEdges": 0
-              },
-              "type": "date_histogram"
-            }
-          ],
-          "hide": false,
-          "metrics": [
-            {
-              "field": "even",
-              "id": "1",
-              "meta": {},
-              "settings": {},
-              "type": "count"
-            }
-          ],
-          "query": "logstash-sip-* AND event_type:sip",
-          "refId": "A",
-          "timeField": "@timestamp"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "SN-SIP-SipCode",
-      "type": "grafana-piechart-panel",
-      "valueName": "total"
-    },
-    {
-      "aliasColors": {},
-      "breakPoint": "50%",
-      "cacheTimeout": null,
-      "combine": {
-        "label": "",
-        "threshold": ""
-      },
-      "datasource": "$elasticsearch",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "left",
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "string"
-        },
-        "overrides": []
-      },
-      "fontSize": "100%",
-      "format": "short",
-      "gridPos": {
-        "h": 11,
-        "w": 12,
-        "x": 12,
-        "y": 40
-      },
-      "id": 46,
+      "id": 38,
       "interval": null,
       "legend": {
         "percentage": false,
@@ -907,13 +871,13 @@
           "bucketAggs": [
             {
               "fake": true,
-              "field": "sip.uri.keyword",
+              "field": "ikev2.role.keyword",
               "id": "4",
               "settings": {
                 "min_doc_count": "1",
                 "order": "desc",
                 "orderBy": "_count",
-                "size": "5"
+                "size": "100"
               },
               "type": "terms"
             },
@@ -939,14 +903,14 @@
               "type": "count"
             }
           ],
-          "query": "logstash-sip-* AND event_type:sip",
+          "query": "logstash-ikev2-*",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-SIP-SipUri",
+      "title": "SN-IKEv2-Role",
       "type": "grafana-piechart-panel",
       "valueName": "total"
     },
@@ -979,116 +943,15 @@
         },
         "overrides": []
       },
-      "fontSize": "100%",
+      "fontSize": "80%",
       "format": "short",
       "gridPos": {
-        "h": 11,
-        "w": 12,
-        "x": 0,
-        "y": 51
-      },
-      "id": 47,
-      "interval": null,
-      "legend": {
-        "percentage": true,
-        "show": true,
-        "sideWidth": 150,
-        "values": false
-      },
-      "legendType": "Right side",
-      "links": [],
-      "maxDataPoints": 3,
-      "nullPointMode": "connected",
-      "pieType": "pie",
-      "pluginVersion": "7.2.1",
-      "strokeWidth": "1",
-      "targets": [
-        {
-          "alias": "",
-          "bucketAggs": [
-            {
-              "fake": true,
-              "field": "sip.method.keyword",
-              "id": "4",
-              "settings": {
-                "min_doc_count": "1",
-                "order": "desc",
-                "orderBy": "_count",
-                "size": "5"
-              },
-              "type": "terms"
-            },
-            {
-              "fake": true,
-              "field": "@timestamp",
-              "id": "3",
-              "settings": {
-                "interval": "auto",
-                "min_doc_count": 0,
-                "trimEdges": 0
-              },
-              "type": "date_histogram"
-            }
-          ],
-          "hide": false,
-          "metrics": [
-            {
-              "field": "even",
-              "id": "1",
-              "meta": {},
-              "settings": {},
-              "type": "count"
-            }
-          ],
-          "query": "logstash-sip-* AND event_type:sip",
-          "refId": "A",
-          "timeField": "@timestamp"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "SN-SIP-SipMethod",
-      "type": "grafana-piechart-panel",
-      "valueName": "total"
-    },
-    {
-      "aliasColors": {},
-      "breakPoint": "50%",
-      "cacheTimeout": null,
-      "combine": {
-        "label": "",
-        "threshold": ""
-      },
-      "datasource": "$elasticsearch",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "left",
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "string"
-        },
-        "overrides": []
-      },
-      "fontSize": "100%",
-      "format": "short",
-      "gridPos": {
-        "h": 11,
+        "h": 13,
         "w": 12,
         "x": 12,
-        "y": 51
+        "y": 32
       },
-      "id": 48,
+      "id": 43,
       "interval": null,
       "legend": {
         "percentage": false,
@@ -1100,7 +963,7 @@
       "links": [],
       "maxDataPoints": 3,
       "nullPointMode": "connected",
-      "pieType": "pie",
+      "pieType": "donut",
       "pluginVersion": "7.2.1",
       "strokeWidth": "1",
       "targets": [
@@ -1109,12 +972,23 @@
           "bucketAggs": [
             {
               "fake": true,
-              "field": "sip.reason.keyword",
+              "field": "ikev2.version_minor",
+              "id": "5",
+              "settings": {
+                "min_doc_count": 0,
+                "order": "asc",
+                "orderBy": "_term",
+                "size": "5"
+              },
+              "type": "terms"
+            },
+            {
+              "fake": true,
+              "field": "ikev2.version_major",
               "id": "4",
               "settings": {
                 "min_doc_count": "1",
-                "missing": "Missing",
-                "order": "desc",
+                "order": "asc",
                 "orderBy": "_count",
                 "size": "5"
               },
@@ -1142,14 +1016,14 @@
               "type": "count"
             }
           ],
-          "query": "logstash-sip-* AND event_type:sip",
+          "query": "logstash-ikev2-*",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-SIP-SipReason",
+      "title": "SN-IKEv2-VerMajMinor",
       "type": "grafana-piechart-panel",
       "valueName": "total"
     },
@@ -1178,10 +1052,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 18,
+        "h": 24,
         "w": 24,
         "x": 0,
-        "y": 62
+        "y": 45
       },
       "id": 20,
       "options": {
@@ -1226,14 +1100,14 @@
               "type": "logs"
             }
           ],
-          "query": "logstash-sip-* AND event_type:sip",
+          "query": "logstash-ikev2-*",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-SIP-EventsList",
+      "title": "SN-IKEv2-EventsList",
       "transformations": [
         {
           "id": "filterFieldsByName",
@@ -1243,11 +1117,12 @@
                 "@timestamp",
                 "dest_ip",
                 "dest_port",
+                "proto",
                 "src_ip",
                 "src_port",
-                "sip.version",
-                "sip.uri",
-                "sip.method"
+                "ikev2.role",
+                "ikev2.errors",
+                "ikev2.notify"
               ]
             }
           }
@@ -1260,9 +1135,9 @@
               "@timestamp": 0,
               "dest_ip": 3,
               "dest_port": 4,
-              "sip.method": 6,
-              "sip.uri": 7,
-              "sip.version": 5,
+              "ikev2.errors": 7,
+              "ikev2.role": 6,
+              "proto": 5,
               "src_ip": 1,
               "src_port": 2
             },
@@ -1292,7 +1167,6 @@
         "name": "elasticsearch",
         "options": [],
         "query": "elasticsearch",
-        "queryValue": "",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1306,7 +1180,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "SN-SIP",
-  "uid": "EUiynVpGk",
-  "version": 12
+  "title": "SN-IKEv2",
+  "uid": "ZcUst7tMk",
+  "version": 14
 }

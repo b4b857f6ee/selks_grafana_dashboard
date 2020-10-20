@@ -1,4 +1,43 @@
 {
+  "__inputs": [],
+  "__requires": [
+    {
+      "type": "datasource",
+      "id": "elasticsearch",
+      "name": "Elasticsearch",
+      "version": "1.0.0"
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "7.2.1"
+    },
+    {
+      "type": "panel",
+      "id": "grafana-piechart-panel",
+      "name": "Pie Chart",
+      "version": "1.3.9"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -15,16 +54,12 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 51,
-  "iteration": 1603219661173,
+  "id": null,
+  "iteration": 1603222692055,
   "links": [],
   "panels": [
     {
-      "aliasColors": {},
-      "bars": true,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "$Elasticsearch",
+      "datasource": "$elasticsearch",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -32,154 +67,8 @@
             "filterable": false
           },
           "mappings": [],
-          "thresholds": {
-            "mode": "percentage",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "fill": 0,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 9,
-        "w": 24,
-        "x": 0,
-        "y": 0
-      },
-      "hiddenSeries": false,
-      "id": 2,
-      "legend": {
-        "alignAsTable": false,
-        "avg": false,
-        "current": false,
-        "hideEmpty": false,
-        "hideZero": false,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": false,
-      "linewidth": 2,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": false
-      },
-      "percentage": false,
-      "pluginVersion": "7.2.1",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": true,
-      "steppedLine": false,
-      "targets": [
-        {
-          "alias": "",
-          "bucketAggs": [
-            {
-              "fake": true,
-              "field": "event_type.keyword",
-              "id": "4",
-              "settings": {
-                "min_doc_count": 0,
-                "order": "desc",
-                "orderBy": "_count",
-                "size": "30"
-              },
-              "type": "terms"
-            },
-            {
-              "fake": true,
-              "field": "@timestamp",
-              "id": "3",
-              "settings": {
-                "interval": "30m",
-                "min_doc_count": 0,
-                "trimEdges": 0
-              },
-              "type": "date_histogram"
-            }
-          ],
-          "hide": false,
-          "metrics": [
-            {
-              "field": "even",
-              "id": "1",
-              "meta": {},
-              "settings": {},
-              "type": "count"
-            }
-          ],
-          "query": "*",
-          "refId": "A",
-          "timeField": "@timestamp"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "SN-Alert-ByExtraInfoType",
-      "tooltip": {
-        "shared": false,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "none",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "datasource": "$Elasticsearch",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "left",
-            "filterable": false
-          },
-          "mappings": [],
+          "max": 1000,
+          "min": 1,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -194,10 +83,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 9,
-        "w": 12,
+        "h": 5,
+        "w": 24,
         "x": 0,
-        "y": 9
+        "y": 0
       },
       "id": 3,
       "options": {
@@ -220,12 +109,13 @@
           "alias": "",
           "bucketAggs": [
             {
+              "$$hashKey": "object:235",
               "fake": true,
               "field": "@timestamp",
               "id": "3",
               "settings": {
                 "interval": "auto",
-                "min_doc_count": 0,
+                "min_doc_count": "0",
                 "trimEdges": 0
               },
               "type": "date_histogram"
@@ -234,6 +124,7 @@
           "hide": false,
           "metrics": [
             {
+              "$$hashKey": "object:179",
               "field": "even",
               "id": "1",
               "meta": {},
@@ -241,14 +132,14 @@
               "type": "count"
             }
           ],
-          "query": "event_type:alert",
+          "query": "logstash-sip-* AND event_type:sip",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-Alert-Count",
+      "title": "SN-SIP-Total",
       "type": "stat"
     },
     {
@@ -256,7 +147,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "$Elasticsearch",
+      "datasource": "$elasticsearch",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -281,16 +172,16 @@
         },
         "overrides": []
       },
-      "fill": 10,
+      "fill": 0,
       "fillGradient": 0,
       "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 12,
-        "y": 9
+        "h": 13,
+        "w": 24,
+        "x": 0,
+        "y": 5
       },
       "hiddenSeries": false,
-      "id": 22,
+      "id": 2,
       "legend": {
         "alignAsTable": false,
         "avg": false,
@@ -313,61 +204,24 @@
       "percentage": false,
       "pluginVersion": "7.2.1",
       "pointradius": 2,
-      "points": false,
+      "points": true,
       "renderer": "flot",
       "seriesOverrides": [],
       "spaceLength": 10,
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [
         {
           "alias": "",
           "bucketAggs": [
             {
-              "fake": true,
-              "id": "6",
-              "query": "*",
-              "settings": {
-                "filters": [
-                  {
-                    "label": "SSH-Alert",
-                    "query": "_exists_:ssh"
-                  },
-                  {
-                    "label": "SMTP-Alert",
-                    "query": "_exists_:smtp"
-                  },
-                  {
-                    "label": "HTTP-Alert",
-                    "query": "_exists_:http"
-                  },
-                  {
-                    "label": "TLS-Alert",
-                    "query": "_exists_:tls"
-                  },
-                  {
-                    "label": "SMB-Alert",
-                    "query": "_exists_:smb"
-                  },
-                  {
-                    "label": "DNS-Alert",
-                    "query": "_exists_:dns"
-                  },
-                  {
-                    "label": "Other-Alert",
-                    "query": "-_exists_:ssh -_exists_:smtp -_exists_:http -_exists_:tls -_exists_:dns -_exists_:smb"
-                  }
-                ]
-              },
-              "type": "filters"
-            },
-            {
+              "$$hashKey": "object:235",
               "fake": true,
               "field": "@timestamp",
               "id": "3",
               "settings": {
-                "interval": "auto",
-                "min_doc_count": 0,
+                "interval": "30m",
+                "min_doc_count": "1",
                 "trimEdges": 0
               },
               "type": "date_histogram"
@@ -376,6 +230,7 @@
           "hide": false,
           "metrics": [
             {
+              "$$hashKey": "object:179",
               "field": "even",
               "id": "1",
               "meta": {},
@@ -383,13 +238,14 @@
               "type": "count"
             }
           ],
-          "query": "event_type:alert",
+          "query": "logstash-sip-* AND event_type:sip",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "thresholds": [
         {
+          "$$hashKey": "object:1909",
           "colorMode": "critical",
           "fill": true,
           "line": true,
@@ -400,7 +256,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "SN-Alert-ByExtraInfoType",
+      "title": "SN-SIP-EventsOverTime",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -416,6 +272,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:1516",
           "format": "none",
           "label": null,
           "logBase": 1,
@@ -424,6 +281,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:1517",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -438,153 +296,12 @@
       }
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "cacheTimeout": null,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "$Elasticsearch",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "left",
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "string"
-        },
-        "overrides": []
-      },
-      "fill": 0,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 0,
-        "y": 18
-      },
-      "hiddenSeries": false,
-      "id": 5,
-      "interval": null,
-      "legend": {
-        "alignAsTable": false,
-        "avg": false,
-        "current": false,
-        "hideEmpty": false,
-        "hideZero": false,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 2,
-      "links": [],
-      "maxDataPoints": 3,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": false
-      },
-      "percentage": false,
-      "pluginVersion": "7.2.1",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "alias": "",
-          "bucketAggs": [
-            {
-              "fake": true,
-              "field": "@timestamp",
-              "id": "3",
-              "settings": {
-                "interval": "30m",
-                "min_doc_count": "0",
-                "offset": "",
-                "trimEdges": 0
-              },
-              "type": "date_histogram"
-            }
-          ],
-          "hide": false,
-          "metrics": [
-            {
-              "field": "even",
-              "id": "1",
-              "meta": {},
-              "settings": {},
-              "type": "count"
-            }
-          ],
-          "query": "event_type: fileinfo",
-          "refId": "A",
-          "timeField": "@timestamp"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "SN-FILE-EventsOverTime",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "string",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "datasource": "$Elasticsearch",
+      "datasource": "$elasticsearch",
       "description": "",
       "fieldConfig": {
         "defaults": {
           "custom": {
-            "align": null,
+            "align": "left",
             "displayMode": "color-text",
             "filterable": false
           },
@@ -600,15 +317,28 @@
           },
           "unit": "none"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "alert.signature.keyword"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 493
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
-        "h": 9,
-        "w": 6,
-        "x": 12,
+        "h": 11,
+        "w": 12,
+        "x": 0,
         "y": 18
       },
-      "id": 6,
+      "id": 17,
       "options": {
         "showHeader": true,
         "sortBy": []
@@ -619,13 +349,14 @@
           "alias": "",
           "bucketAggs": [
             {
+              "$$hashKey": "object:2591",
               "fake": true,
-              "field": "alert.signature.keyword",
-              "id": "7",
+              "field": "src_ip.keyword",
+              "id": "9",
               "settings": {
                 "min_doc_count": "1",
                 "order": "desc",
-                "orderBy": "_count",
+                "orderBy": "_term",
                 "size": "100"
               },
               "type": "terms"
@@ -634,21 +365,239 @@
           "hide": false,
           "metrics": [
             {
-              "field": "even",
+              "$$hashKey": "object:179",
+              "field": "alert.signature.keyword",
               "id": "1",
               "meta": {},
               "settings": {},
               "type": "count"
             }
           ],
-          "query": "*",
+          "query": "logstash-sip-* AND event_type:sip",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-ThreatHunt-ALERTS-Top100Signatures",
+      "title": "SN-SIP-Top100SrcIP",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {
+              "Count": 3,
+              "http.hostname.keyword": 1,
+              "http.length": 0,
+              "src_ip.keyword": 2
+            },
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": "$elasticsearch",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "left",
+            "displayMode": "color-text",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "alert.signature.keyword"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 493
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 12,
+        "y": 18
+      },
+      "id": 40,
+      "options": {
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "7.2.1",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "$$hashKey": "object:2591",
+              "fake": true,
+              "field": "dest_ip.keyword",
+              "id": "9",
+              "settings": {
+                "min_doc_count": "1",
+                "order": "desc",
+                "orderBy": "_term",
+                "size": "100"
+              },
+              "type": "terms"
+            }
+          ],
+          "hide": false,
+          "metrics": [
+            {
+              "$$hashKey": "object:179",
+              "field": "alert.signature.keyword",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "count"
+            }
+          ],
+          "query": "logstash-sip-* AND event_type:sip",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "SN-SIP-Top100DestIP",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {
+              "Count": 1,
+              "dest_ip.keyword": 0
+            },
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": "$elasticsearch",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "left",
+            "displayMode": "color-text",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "alert.signature.keyword"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 493
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 6,
+        "x": 0,
+        "y": 29
+      },
+      "id": 41,
+      "options": {
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "7.2.1",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "$$hashKey": "object:2591",
+              "fake": true,
+              "field": "src_port",
+              "id": "9",
+              "settings": {
+                "min_doc_count": "1",
+                "order": "asc",
+                "orderBy": "_term",
+                "size": "100"
+              },
+              "type": "terms"
+            }
+          ],
+          "hide": false,
+          "metrics": [
+            {
+              "$$hashKey": "object:179",
+              "field": "alert.signature.keyword",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "count"
+            }
+          ],
+          "query": "logstash-sip-* AND event_type:sip",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "SN-SIP-Top100SrcPort",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {
+              "Count": 1,
+              "src_port": 0
+            },
+            "renameByName": {}
+          }
+        }
+      ],
       "type": "table"
     },
     {
@@ -659,7 +608,7 @@
         "label": "",
         "threshold": 0
       },
-      "datasource": "$Elasticsearch",
+      "datasource": "$elasticsearch",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -680,57 +629,48 @@
         },
         "overrides": []
       },
-      "fontSize": "80%",
+      "fontSize": "100%",
       "format": "short",
       "gridPos": {
-        "h": 9,
-        "w": 6,
-        "x": 18,
-        "y": 18
+        "h": 11,
+        "w": 12,
+        "x": 6,
+        "y": 29
       },
-      "id": 8,
+      "id": 5,
       "interval": null,
       "legend": {
-        "percentage": false,
+        "percentage": true,
         "show": true,
+        "sideWidth": 150,
         "values": false
       },
-      "legendType": "Right side",
+      "legendType": "On graph",
       "links": [],
       "maxDataPoints": 3,
       "nullPointMode": "connected",
-      "pieType": "donut",
+      "pieType": "pie",
       "pluginVersion": "7.2.1",
-      "strokeWidth": 1,
+      "strokeWidth": "1",
       "targets": [
         {
           "alias": "",
           "bucketAggs": [
             {
+              "$$hashKey": "object:27",
               "fake": true,
-              "field": "app_proto.keyword",
-              "id": "5",
-              "settings": {
-                "min_doc_count": 0,
-                "order": "asc",
-                "orderBy": "_term",
-                "size": "20"
-              },
-              "type": "terms"
-            },
-            {
-              "fake": true,
-              "field": "proto.keyword",
+              "field": "sip.version.keyword",
               "id": "4",
               "settings": {
                 "min_doc_count": "1",
                 "order": "desc",
                 "orderBy": "_count",
-                "size": "20"
+                "size": "5"
               },
               "type": "terms"
             },
             {
+              "$$hashKey": "object:235",
               "fake": true,
               "field": "@timestamp",
               "id": "3",
@@ -745,6 +685,7 @@
           "hide": false,
           "metrics": [
             {
+              "$$hashKey": "object:179",
               "field": "even",
               "id": "1",
               "meta": {},
@@ -752,24 +693,231 @@
               "type": "count"
             }
           ],
-          "query": "*",
+          "query": "logstash-sip-* AND event_type:sip",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-Proto-app_proto",
+      "title": "SN-SIP-SipVersion",
+      "type": "grafana-piechart-panel",
+      "valueName": "total"
+    },
+    {
+      "datasource": "$elasticsearch",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "left",
+            "displayMode": "color-text",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "alert.signature.keyword"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 493
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 6,
+        "x": 18,
+        "y": 29
+      },
+      "id": 42,
+      "options": {
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "7.2.1",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "$$hashKey": "object:2591",
+              "fake": true,
+              "field": "dest_port",
+              "id": "9",
+              "settings": {
+                "min_doc_count": "1",
+                "order": "desc",
+                "orderBy": "_term",
+                "size": "100"
+              },
+              "type": "terms"
+            }
+          ],
+          "hide": false,
+          "metrics": [
+            {
+              "$$hashKey": "object:179",
+              "field": "alert.signature.keyword",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "count"
+            }
+          ],
+          "query": "logstash-sip-* AND event_type:sip",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "SN-SIP-Top100DestPort",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {
+              "Count": 1,
+              "dest_port": 0
+            },
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "aliasColors": {},
+      "breakPoint": "50%",
+      "cacheTimeout": null,
+      "combine": {
+        "label": "",
+        "threshold": 0
+      },
+      "datasource": "$elasticsearch",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "left",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "string"
+        },
+        "overrides": []
+      },
+      "fontSize": "100%",
+      "format": "short",
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 0,
+        "y": 40
+      },
+      "id": 45,
+      "interval": null,
+      "legend": {
+        "percentage": true,
+        "show": true,
+        "sideWidth": 150,
+        "values": false
+      },
+      "legendType": "On graph",
+      "links": [],
+      "maxDataPoints": 3,
+      "nullPointMode": "connected",
+      "pieType": "pie",
+      "pluginVersion": "7.2.1",
+      "strokeWidth": "1",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "$$hashKey": "object:27",
+              "fake": true,
+              "field": "sip.code.keyword",
+              "id": "4",
+              "settings": {
+                "min_doc_count": "1",
+                "order": "desc",
+                "orderBy": "_count",
+                "size": "5"
+              },
+              "type": "terms"
+            },
+            {
+              "$$hashKey": "object:235",
+              "fake": true,
+              "field": "@timestamp",
+              "id": "3",
+              "settings": {
+                "interval": "auto",
+                "min_doc_count": 0,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "hide": false,
+          "metrics": [
+            {
+              "$$hashKey": "object:179",
+              "field": "even",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "count"
+            }
+          ],
+          "query": "logstash-sip-* AND event_type:sip",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "SN-SIP-SipCode",
       "type": "grafana-piechart-panel",
       "valueName": "total"
     },
     {
       "aliasColors": {},
-      "bars": true,
+      "breakPoint": "50%",
       "cacheTimeout": null,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "$Elasticsearch",
+      "combine": {
+        "label": "",
+        "threshold": ""
+      },
+      "datasource": "$elasticsearch",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -790,215 +938,53 @@
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
+      "fontSize": "100%",
+      "format": "short",
       "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 0,
-        "y": 27
-      },
-      "hiddenSeries": false,
-      "id": 9,
-      "interval": null,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": false,
-      "linewidth": 1,
-      "links": [],
-      "maxDataPoints": 3,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.2.1",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "alias": "",
-          "bucketAggs": [
-            {
-              "fake": true,
-              "id": "4",
-              "query": "*",
-              "settings": {
-                "filters": [
-                  {
-                    "query": "event_type: dns"
-                  }
-                ]
-              },
-              "type": "filters"
-            },
-            {
-              "fake": true,
-              "field": "@timestamp",
-              "id": "3",
-              "settings": {
-                "interval": "30m",
-                "min_doc_count": 0,
-                "trimEdges": 0
-              },
-              "type": "date_histogram"
-            }
-          ],
-          "hide": false,
-          "metrics": [
-            {
-              "field": "even",
-              "id": "1",
-              "meta": {},
-              "settings": {},
-              "type": "count"
-            }
-          ],
-          "query": "event_type: dns",
-          "refId": "A",
-          "timeField": "@timestamp"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "SN-DNS-DnsOverTime",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "string",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": true,
-      "cacheTimeout": null,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "$Elasticsearch",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "left",
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "string"
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 9,
+        "h": 11,
         "w": 12,
         "x": 12,
-        "y": 27
+        "y": 40
       },
-      "hiddenSeries": false,
-      "id": 23,
+      "id": 46,
       "interval": null,
       "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
+        "percentage": false,
         "show": true,
-        "total": false,
+        "sideWidth": 150,
         "values": false
       },
-      "lines": false,
-      "linewidth": 1,
+      "legendType": "Right side",
       "links": [],
       "maxDataPoints": 3,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
+      "nullPointMode": "connected",
+      "pieType": "pie",
       "pluginVersion": "7.2.1",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+      "strokeWidth": "1",
       "targets": [
         {
           "alias": "",
           "bucketAggs": [
             {
+              "$$hashKey": "object:27",
               "fake": true,
+              "field": "sip.uri.keyword",
               "id": "4",
-              "query": "*",
               "settings": {
-                "filters": [
-                  {
-                    "query": "event_type: smtp"
-                  }
-                ]
+                "min_doc_count": "1",
+                "order": "desc",
+                "orderBy": "_count",
+                "size": "5"
               },
-              "type": "filters"
+              "type": "terms"
             },
             {
+              "$$hashKey": "object:235",
               "fake": true,
               "field": "@timestamp",
               "id": "3",
               "settings": {
-                "interval": "30m",
+                "interval": "auto",
                 "min_doc_count": 0,
                 "trimEdges": 0
               },
@@ -1008,6 +994,7 @@
           "hide": false,
           "metrics": [
             {
+              "$$hashKey": "object:179",
               "field": "even",
               "id": "1",
               "meta": {},
@@ -1015,59 +1002,26 @@
               "type": "count"
             }
           ],
-          "query": "event_type: smtp",
+          "query": "logstash-sip-* AND event_type:sip",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
-      "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
-      "title": "SN-SMTP-SmtpOverTime",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "string",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      "title": "SN-SIP-SipUri",
+      "type": "grafana-piechart-panel",
+      "valueName": "total"
     },
     {
       "aliasColors": {},
-      "bars": true,
+      "breakPoint": "50%",
       "cacheTimeout": null,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "$Elasticsearch",
+      "combine": {
+        "label": "",
+        "threshold": 0
+      },
+      "datasource": "$elasticsearch",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -1088,66 +1042,53 @@
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
+      "fontSize": "100%",
+      "format": "short",
       "gridPos": {
-        "h": 9,
+        "h": 11,
         "w": 12,
         "x": 0,
-        "y": 36
+        "y": 51
       },
-      "hiddenSeries": false,
-      "id": 24,
+      "id": 47,
       "interval": null,
       "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
+        "percentage": true,
         "show": true,
-        "total": false,
+        "sideWidth": 150,
         "values": false
       },
-      "lines": false,
-      "linewidth": 1,
+      "legendType": "Right side",
       "links": [],
       "maxDataPoints": 3,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
+      "nullPointMode": "connected",
+      "pieType": "pie",
       "pluginVersion": "7.2.1",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+      "strokeWidth": "1",
       "targets": [
         {
           "alias": "",
           "bucketAggs": [
             {
+              "$$hashKey": "object:27",
               "fake": true,
+              "field": "sip.method.keyword",
               "id": "4",
-              "query": "*",
               "settings": {
-                "filters": [
-                  {
-                    "query": "event_type: tls"
-                  }
-                ]
+                "min_doc_count": "1",
+                "order": "desc",
+                "orderBy": "_count",
+                "size": "5"
               },
-              "type": "filters"
+              "type": "terms"
             },
             {
+              "$$hashKey": "object:235",
               "fake": true,
               "field": "@timestamp",
               "id": "3",
               "settings": {
-                "interval": "30m",
+                "interval": "auto",
                 "min_doc_count": 0,
                 "trimEdges": 0
               },
@@ -1157,6 +1098,7 @@
           "hide": false,
           "metrics": [
             {
+              "$$hashKey": "object:179",
               "field": "even",
               "id": "1",
               "meta": {},
@@ -1164,59 +1106,26 @@
               "type": "count"
             }
           ],
-          "query": "event_type: tls",
+          "query": "logstash-sip-* AND event_type:sip",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
-      "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
-      "title": "SN-TLS-EventsOverTime",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "string",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      "title": "SN-SIP-SipMethod",
+      "type": "grafana-piechart-panel",
+      "valueName": "total"
     },
     {
       "aliasColors": {},
-      "bars": true,
+      "breakPoint": "50%",
       "cacheTimeout": null,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "$Elasticsearch",
+      "combine": {
+        "label": "",
+        "threshold": ""
+      },
+      "datasource": "$elasticsearch",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -1237,66 +1146,54 @@
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
+      "fontSize": "100%",
+      "format": "short",
       "gridPos": {
-        "h": 9,
+        "h": 11,
         "w": 12,
         "x": 12,
-        "y": 36
+        "y": 51
       },
-      "hiddenSeries": false,
-      "id": 25,
+      "id": 48,
       "interval": null,
       "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
+        "percentage": false,
         "show": true,
-        "total": false,
+        "sideWidth": 150,
         "values": false
       },
-      "lines": false,
-      "linewidth": 1,
+      "legendType": "Right side",
       "links": [],
       "maxDataPoints": 3,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
+      "nullPointMode": "connected",
+      "pieType": "pie",
       "pluginVersion": "7.2.1",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+      "strokeWidth": "1",
       "targets": [
         {
           "alias": "",
           "bucketAggs": [
             {
+              "$$hashKey": "object:27",
               "fake": true,
+              "field": "sip.reason.keyword",
               "id": "4",
-              "query": "*",
               "settings": {
-                "filters": [
-                  {
-                    "query": "event_type: ssh"
-                  }
-                ]
+                "min_doc_count": "1",
+                "missing": "Missing",
+                "order": "desc",
+                "orderBy": "_count",
+                "size": "5"
               },
-              "type": "filters"
+              "type": "terms"
             },
             {
+              "$$hashKey": "object:235",
               "fake": true,
               "field": "@timestamp",
               "id": "3",
               "settings": {
-                "interval": "30m",
+                "interval": "auto",
                 "min_doc_count": 0,
                 "trimEdges": 0
               },
@@ -1306,6 +1203,7 @@
           "hide": false,
           "metrics": [
             {
+              "$$hashKey": "object:179",
               "field": "even",
               "id": "1",
               "meta": {},
@@ -1313,54 +1211,19 @@
               "type": "count"
             }
           ],
-          "query": "event_type: ssh",
+          "query": "logstash-sip-* AND event_type:sip",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
-      "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
-      "title": "SN-SSH-EventsOverTime",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "string",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      "title": "SN-SIP-SipReason",
+      "type": "grafana-piechart-panel",
+      "valueName": "total"
     },
     {
-      "datasource": "$Elasticsearch",
+      "datasource": "$elasticsearch",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -1369,6 +1232,7 @@
             "filterable": false
           },
           "mappings": [],
+          "noValue": "-",
           "thresholds": {
             "mode": "percentage",
             "steps": [
@@ -1383,10 +1247,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 24,
+        "h": 18,
         "w": 24,
         "x": 0,
-        "y": 45
+        "y": 62
       },
       "id": 20,
       "options": {
@@ -1404,11 +1268,12 @@
           "alias": "",
           "bucketAggs": [
             {
+              "$$hashKey": "object:270",
               "field": "@timestamp",
               "id": "2",
               "settings": {
                 "interval": "auto",
-                "min_doc_count": 0,
+                "min_doc_count": "1",
                 "trimEdges": 0
               },
               "type": "date_histogram"
@@ -1417,12 +1282,14 @@
           "hide": false,
           "metrics": [
             {
+              "$$hashKey": "object:179",
               "field": "select metric",
               "id": "1",
               "meta": {},
               "pipelineAgg": "select metric",
               "pipelineVariables": [
                 {
+                  "$$hashKey": "object:432",
                   "name": "var1",
                   "pipelineAgg": "select metric"
                 }
@@ -1431,14 +1298,14 @@
               "type": "logs"
             }
           ],
-          "query": "NOT event_type:stats AND event_type:*",
+          "query": "logstash-sip-* AND event_type:sip",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-ALL-EventsList",
+      "title": "SN-SIP-EventsList",
       "transformations": [
         {
           "id": "filterFieldsByName",
@@ -1448,10 +1315,11 @@
                 "@timestamp",
                 "dest_ip",
                 "dest_port",
-                "proto",
                 "src_ip",
                 "src_port",
-                "event_type"
+                "sip.version",
+                "sip.uri",
+                "sip.method"
               ]
             }
           }
@@ -1462,13 +1330,13 @@
             "excludeByName": {},
             "indexByName": {
               "@timestamp": 0,
-              "dest_ip": 5,
-              "dest_port": 6,
-              "event_type": 1,
-              "proto": 4,
-              "src_ip": 2,
-              "src_port": 3,
-              "vlan": 7
+              "dest_ip": 3,
+              "dest_port": 4,
+              "sip.method": 6,
+              "sip.uri": 7,
+              "sip.version": 5,
+              "src_ip": 1,
+              "src_port": 2
             },
             "renameByName": {}
           }
@@ -1493,9 +1361,10 @@
         "includeAll": false,
         "label": null,
         "multi": false,
-        "name": "Elasticsearch",
+        "name": "elasticsearch",
         "options": [],
         "query": "elasticsearch",
+        "queryValue": "",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1509,7 +1378,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "SN-ALL",
-  "uid": "mlSBCq5Gz",
-  "version": 17
+  "title": "SN-SIP",
+  "uid": "EUiynVpGk",
+  "version": 12
 }

@@ -1,4 +1,49 @@
 {
+  "__inputs": [],
+  "__requires": [
+    {
+      "type": "datasource",
+      "id": "elasticsearch",
+      "name": "Elasticsearch",
+      "version": "1.0.0"
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "7.2.1"
+    },
+    {
+      "type": "panel",
+      "id": "grafana-piechart-panel",
+      "name": "Pie Chart",
+      "version": "1.3.9"
+    },
+    {
+      "type": "panel",
+      "id": "grafana-worldmap-panel",
+      "name": "Worldmap Panel",
+      "version": "0.2.1"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -15,12 +60,12 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 53,
-  "iteration": 1603219662403,
+  "id": null,
+  "iteration": 1603222688055,
   "links": [],
   "panels": [
     {
-      "datasource": "$Elastcisearch",
+      "datasource": "$elasticsearch",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -28,8 +73,8 @@
             "filterable": false
           },
           "mappings": [],
-          "max": 10000,
-          "min": 0,
+          "max": 1000,
+          "min": 1,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -44,7 +89,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
+        "h": 5,
         "w": 24,
         "x": 0,
         "y": 0
@@ -67,48 +112,155 @@
       "pluginVersion": "7.2.1",
       "targets": [
         {
+          "alias": "",
           "bucketAggs": [
             {
+              "fake": true,
               "field": "@timestamp",
-              "id": "2",
+              "id": "3",
               "settings": {
                 "interval": "auto",
-                "min_doc_count": 0,
+                "min_doc_count": "0",
                 "trimEdges": 0
               },
               "type": "date_histogram"
             }
           ],
+          "hide": false,
           "metrics": [
             {
-              "field": "select field",
+              "field": "even",
               "id": "1",
+              "meta": {},
+              "settings": {},
               "type": "count"
             }
           ],
-          "query": "logstash-dhcp-* AND event_type:dhcp",
+          "query": "logstash-fileinfo-*",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-DHCP-Total",
+      "title": "SN-FILE-Total",
       "type": "stat"
     },
     {
-      "aliasColors": {},
-      "bars": true,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "$Elastcisearch",
+      "circleMaxSize": 30,
+      "circleMinSize": 2,
+      "colors": [
+        "#FADE2A",
+        "#FADE2A",
+        "#F2495C"
+      ],
+      "datasource": "$elasticsearch",
+      "decimals": 0,
+      "esGeoPoint": "geoip.location",
+      "esLocationName": "",
+      "esMetric": "Count",
       "fieldConfig": {
         "defaults": {
           "custom": {
             "align": "left",
             "filterable": false
           },
-          "displayName": "DHCP",
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "num"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 17,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
+      "hideEmpty": false,
+      "hideZero": false,
+      "id": 4,
+      "initialZoom": 1,
+      "locationData": "geohash",
+      "mapCenter": "(0°, 0°)",
+      "mapCenterLatitude": 0,
+      "mapCenterLongitude": 0,
+      "maxDataPoints": 1,
+      "mouseWheelZoom": false,
+      "pluginVersion": "7.2.1",
+      "showLegend": true,
+      "stickyLabels": false,
+      "tableQueryOptions": {
+        "geohashField": "geohash",
+        "latitudeField": "latitude",
+        "longitudeField": "longitude",
+        "metricField": "metric",
+        "queryType": "geohash"
+      },
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "fake": true,
+              "field": "geoip.location",
+              "id": "3",
+              "settings": {
+                "precision": 3
+              },
+              "type": "geohash_grid"
+            }
+          ],
+          "hide": false,
+          "metrics": [
+            {
+              "field": "even",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "count"
+            }
+          ],
+          "query": "logstash-fileinfo-* fileinfo.magic: \"PDF\" OR fileinfo.magic: \"executable\"",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "thresholds": "0,2",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "SN-FILE-GeoIPPDFAndExecutables",
+      "transparent": true,
+      "type": "grafana-worldmap-panel",
+      "unitPlural": "",
+      "unitSingle": "",
+      "unitSingular": "",
+      "valueName": "total"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "$elasticsearch",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "left",
+            "filterable": false
+          },
           "mappings": [],
           "thresholds": {
             "mode": "percentage",
@@ -127,13 +279,13 @@
         },
         "overrides": []
       },
-      "fill": 0,
+      "fill": 10,
       "fillGradient": 0,
       "gridPos": {
-        "h": 11,
-        "w": 17,
+        "h": 9,
+        "w": 24,
         "x": 0,
-        "y": 6
+        "y": 22
       },
       "hiddenSeries": false,
       "id": 2,
@@ -150,7 +302,7 @@
         "total": false,
         "values": false
       },
-      "lines": false,
+      "lines": true,
       "linewidth": 2,
       "nullPointMode": "null",
       "options": {
@@ -167,10 +319,24 @@
       "steppedLine": false,
       "targets": [
         {
+          "alias": "",
           "bucketAggs": [
             {
+              "fake": true,
+              "field": "fileinfo.type.keyword",
+              "id": "4",
+              "settings": {
+                "min_doc_count": "1",
+                "order": "desc",
+                "orderBy": "_term",
+                "size": "20"
+              },
+              "type": "terms"
+            },
+            {
+              "fake": true,
               "field": "@timestamp",
-              "id": "2",
+              "id": "3",
               "settings": {
                 "interval": "30m",
                 "min_doc_count": 0,
@@ -179,25 +345,36 @@
               "type": "date_histogram"
             }
           ],
+          "hide": false,
           "metrics": [
             {
-              "field": "select field",
+              "field": "even",
               "id": "1",
+              "meta": {},
+              "settings": {},
               "type": "count"
             }
           ],
-          "query": "logstash-dhcp-* AND event_type:dhcp",
+          "query": "logstash-fileinfo-*  event_type: fileinfo",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
-      "thresholds": [],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "yaxis": "left"
+        }
+      ],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "SN-DHCP-EventsOverTime",
+      "title": "SN-FILE-ByTypeOverTime",
       "tooltip": {
-        "shared": false,
+        "shared": true,
         "sort": 0,
         "value_type": "individual"
       },
@@ -224,7 +401,7 @@
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": false
+          "show": true
         }
       ],
       "yaxis": {
@@ -237,10 +414,10 @@
       "breakPoint": "50%",
       "cacheTimeout": null,
       "combine": {
-        "label": "",
+        "label": "Vlan",
         "threshold": 0
       },
-      "datasource": "$Elastcisearch",
+      "datasource": "$elasticsearch",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -264,43 +441,46 @@
       "fontSize": "80%",
       "format": "short",
       "gridPos": {
-        "h": 11,
-        "w": 7,
-        "x": 17,
-        "y": 6
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 31
       },
-      "id": 26,
+      "id": 23,
       "interval": null,
       "legend": {
         "percentage": false,
         "show": true,
+        "sideWidth": null,
         "values": false
       },
       "legendType": "Right side",
       "links": [],
       "maxDataPoints": 3,
       "nullPointMode": "connected",
-      "pieType": "pie",
+      "pieType": "donut",
       "pluginVersion": "7.2.1",
-      "strokeWidth": 1,
+      "strokeWidth": "1",
       "targets": [
         {
+          "alias": "",
           "bucketAggs": [
             {
               "fake": true,
-              "field": "dhcp.routers.keyword",
-              "id": "3",
+              "field": "http.hostname.keyword",
+              "id": "4",
               "settings": {
                 "min_doc_count": "1",
-                "order": "asc",
-                "orderBy": "_term",
-                "size": "20"
+                "order": "desc",
+                "orderBy": "_count",
+                "size": "10"
               },
               "type": "terms"
             },
             {
+              "fake": true,
               "field": "@timestamp",
-              "id": "2",
+              "id": "3",
               "settings": {
                 "interval": "auto",
                 "min_doc_count": 0,
@@ -309,453 +489,24 @@
               "type": "date_histogram"
             }
           ],
+          "hide": false,
           "metrics": [
             {
-              "field": "select field",
-              "id": "1",
-              "type": "count"
-            }
-          ],
-          "query": "logstash-dhcp-* AND event_type:dhcp",
-          "refId": "A",
-          "timeField": "@timestamp"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "SN-DHCP-Routers-Servers",
-      "type": "grafana-piechart-panel",
-      "valueName": "total"
-    },
-    {
-      "datasource": "$Elastcisearch",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "left",
-            "displayMode": "color-text",
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "alert.signature.keyword"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 493
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 7,
-        "x": 0,
-        "y": 17
-      },
-      "id": 6,
-      "options": {
-        "showHeader": true,
-        "sortBy": []
-      },
-      "pluginVersion": "7.2.1",
-      "targets": [
-        {
-          "bucketAggs": [
-            {
-              "fake": true,
-              "field": "src_ip.keyword",
-              "id": "3",
-              "settings": {
-                "min_doc_count": "1",
-                "order": "desc",
-                "orderBy": "_count",
-                "size": "20"
-              },
-              "type": "terms"
-            }
-          ],
-          "metrics": [
-            {
-              "field": "src_ip.keyword",
+              "field": "even",
               "id": "1",
               "meta": {},
               "settings": {},
               "type": "count"
             }
           ],
-          "query": "logstash-dhcp-* AND event_type:dhcp",
+          "query": "logstash-fileinfo-*  event_type: fileinfo",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-DHCP-Top20SrcIP",
-      "transformations": [
-        {
-          "id": "organize",
-          "options": {}
-        }
-      ],
-      "type": "table"
-    },
-    {
-      "datasource": "$Elastcisearch",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "left",
-            "displayMode": "color-text",
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "alert.signature.keyword"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 493
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 5,
-        "x": 7,
-        "y": 17
-      },
-      "id": 33,
-      "options": {
-        "showHeader": true,
-        "sortBy": []
-      },
-      "pluginVersion": "7.2.1",
-      "targets": [
-        {
-          "bucketAggs": [
-            {
-              "fake": true,
-              "field": "src_port",
-              "id": "3",
-              "settings": {
-                "min_doc_count": "1",
-                "order": "asc",
-                "orderBy": "_term",
-                "size": "20"
-              },
-              "type": "terms"
-            }
-          ],
-          "metrics": [
-            {
-              "field": "select field",
-              "id": "1",
-              "type": "count"
-            }
-          ],
-          "query": "logstash-dhcp-* AND event_type:dhcp",
-          "refId": "A",
-          "timeField": "@timestamp"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "SN-DHCP-Top20SrcPort",
-      "type": "table"
-    },
-    {
-      "datasource": "$Elastcisearch",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "left",
-            "displayMode": "color-text",
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "alert.signature.keyword"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 493
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 7,
-        "x": 12,
-        "y": 17
-      },
-      "id": 34,
-      "options": {
-        "showHeader": true,
-        "sortBy": []
-      },
-      "pluginVersion": "7.2.1",
-      "targets": [
-        {
-          "bucketAggs": [
-            {
-              "fake": true,
-              "field": "dest_ip.keyword",
-              "id": "3",
-              "settings": {
-                "min_doc_count": "1",
-                "order": "asc",
-                "orderBy": "_term",
-                "size": "20"
-              },
-              "type": "terms"
-            }
-          ],
-          "metrics": [
-            {
-              "field": "select field",
-              "id": "1",
-              "type": "count"
-            }
-          ],
-          "query": "logstash-dhcp-* AND event_type:dhcp",
-          "refId": "A",
-          "timeField": "@timestamp"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "SN-DHCP-Top20DestIP",
-      "type": "table"
-    },
-    {
-      "datasource": "$Elastcisearch",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "left",
-            "displayMode": "color-text",
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "alert.signature.keyword"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 493
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 5,
-        "x": 19,
-        "y": 17
-      },
-      "id": 35,
-      "options": {
-        "showHeader": true,
-        "sortBy": []
-      },
-      "pluginVersion": "7.2.1",
-      "targets": [
-        {
-          "bucketAggs": [
-            {
-              "fake": true,
-              "field": "dest_ip.keyword",
-              "id": "3",
-              "settings": {
-                "min_doc_count": "1",
-                "order": "desc",
-                "orderBy": "_count",
-                "size": "20"
-              },
-              "type": "terms"
-            }
-          ],
-          "metrics": [
-            {
-              "field": "select field",
-              "id": "1",
-              "type": "count"
-            }
-          ],
-          "query": "logstash-dhcp-* AND event_type:dhcp",
-          "refId": "A",
-          "timeField": "@timestamp"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "SN-DHCP-Top20DestPort",
-      "transformations": [],
-      "type": "table"
-    },
-    {
-      "aliasColors": {},
-      "breakPoint": "50%",
-      "cacheTimeout": null,
-      "combine": {
-        "label": "",
-        "threshold": 0
-      },
-      "datasource": "$Elastcisearch",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "left",
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "string"
-        },
-        "overrides": []
-      },
-      "fontSize": "80%",
-      "format": "short",
-      "gridPos": {
-        "h": 10,
-        "w": 6,
-        "x": 0,
-        "y": 27
-      },
-      "id": 8,
-      "interval": null,
-      "legend": {
-        "percentage": false,
-        "show": true,
-        "values": false
-      },
-      "legendType": "Right side",
-      "links": [],
-      "maxDataPoints": 3,
-      "nullPointMode": "connected",
-      "pieType": "pie",
-      "pluginVersion": "7.2.1",
-      "strokeWidth": 1,
-      "targets": [
-        {
-          "bucketAggs": [
-            {
-              "fake": true,
-              "field": "dhcp.type.keyword",
-              "id": "3",
-              "settings": {
-                "min_doc_count": 0,
-                "order": "asc",
-                "orderBy": "_count",
-                "size": "20"
-              },
-              "type": "terms"
-            },
-            {
-              "field": "@timestamp",
-              "id": "2",
-              "settings": {
-                "interval": "auto",
-                "min_doc_count": 0,
-                "trimEdges": 0
-              },
-              "type": "date_histogram"
-            }
-          ],
-          "metrics": [
-            {
-              "field": "select field",
-              "id": "1",
-              "type": "count"
-            }
-          ],
-          "query": "logstash-dhcp-* AND event_type:dhcp",
-          "refId": "A",
-          "timeField": "@timestamp"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "SN-DHCP-Type",
+      "title": "SN-FILE-ByHTTPByHostnameServed",
       "type": "grafana-piechart-panel",
       "valueName": "total"
     },
@@ -767,7 +518,7 @@
         "label": "",
         "threshold": 0
       },
-      "datasource": "$Elastcisearch",
+      "datasource": "$elasticsearch",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -792,15 +543,16 @@
       "format": "short",
       "gridPos": {
         "h": 10,
-        "w": 6,
-        "x": 6,
-        "y": 27
+        "w": 12,
+        "x": 12,
+        "y": 31
       },
-      "id": 36,
+      "id": 28,
       "interval": null,
       "legend": {
         "percentage": false,
         "show": true,
+        "sideWidth": null,
         "values": false
       },
       "legendType": "Right side",
@@ -812,22 +564,24 @@
       "strokeWidth": "1",
       "targets": [
         {
+          "alias": "",
           "bucketAggs": [
             {
               "fake": true,
-              "field": "dhcp.dhcp_type.keyword",
-              "id": "3",
+              "field": "app_proto.keyword",
+              "id": "4",
               "settings": {
-                "min_doc_count": 0,
-                "order": "asc",
-                "orderBy": "_term",
-                "size": "20"
+                "min_doc_count": "1",
+                "order": "desc",
+                "orderBy": "_count",
+                "size": "10"
               },
               "type": "terms"
             },
             {
+              "fake": true,
               "field": "@timestamp",
-              "id": "2",
+              "id": "3",
               "settings": {
                 "interval": "auto",
                 "min_doc_count": 0,
@@ -836,37 +590,35 @@
               "type": "date_histogram"
             }
           ],
+          "hide": false,
           "metrics": [
             {
-              "field": "select field",
+              "field": "even",
               "id": "1",
+              "meta": {},
+              "settings": {},
               "type": "count"
             }
           ],
-          "query": "logstash-dhcp-* AND event_type:dhcp",
+          "query": "logstash-fileinfo-*",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-DHCP-Detailed-Type",
+      "title": "SN-FILE-ByAppProto",
       "type": "grafana-piechart-panel",
       "valueName": "total"
     },
     {
-      "aliasColors": {},
-      "breakPoint": "50%",
-      "cacheTimeout": null,
-      "combine": {
-        "label": "",
-        "threshold": 0
-      },
-      "datasource": "$Elastcisearch",
+      "datasource": "$elasticsearch",
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "custom": {
-            "align": "left",
+            "align": null,
+            "displayMode": "color-text",
             "filterable": false
           },
           "mappings": [],
@@ -879,89 +631,260 @@
               }
             ]
           },
-          "unit": "string"
+          "unit": "none"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "alert.signature.keyword"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 493
+              }
+            ]
+          }
+        ]
       },
-      "fontSize": "80%",
-      "format": "short",
       "gridPos": {
-        "h": 10,
+        "h": 8,
+        "w": 6,
+        "x": 0,
+        "y": 41
+      },
+      "id": 17,
+      "options": {
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "7.2.1",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "fake": true,
+              "field": "src_ip.keyword",
+              "id": "8",
+              "settings": {
+                "min_doc_count": "1",
+                "missing": null,
+                "order": "desc",
+                "orderBy": "_count",
+                "size": "20"
+              },
+              "type": "terms"
+            }
+          ],
+          "hide": false,
+          "metrics": [
+            {
+              "field": "alert.signature.keyword",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "count"
+            }
+          ],
+          "query": "logstash-fileinfo-* event_type: fileinfo",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "SN-FILE-Top20SrcIP",
+      "transformations": [],
+      "type": "table"
+    },
+    {
+      "datasource": "$elasticsearch",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "displayMode": "color-text",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "alert.signature.keyword"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 493
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 6,
+        "y": 41
+      },
+      "id": 21,
+      "options": {
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "7.2.1",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "$$hashKey": "object:10749",
+              "fake": true,
+              "field": "dest_ip.keyword",
+              "id": "8",
+              "settings": {
+                "min_doc_count": "1",
+                "missing": null,
+                "order": "desc",
+                "orderBy": "_count",
+                "size": "20"
+              },
+              "type": "terms"
+            }
+          ],
+          "hide": false,
+          "metrics": [
+            {
+              "$$hashKey": "object:10747",
+              "field": "alert.signature.keyword",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "count"
+            }
+          ],
+          "query": "logstash-fileinfo-* event_type: fileinfo",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "SN-FILE-Top20DestIP",
+      "transformations": [],
+      "type": "table"
+    },
+    {
+      "datasource": "$elasticsearch",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "left",
+            "displayMode": "color-text",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "alert.signature.keyword"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 493
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
         "w": 6,
         "x": 12,
-        "y": 27
+        "y": 41
       },
-      "id": 37,
-      "interval": null,
-      "legend": {
-        "percentage": false,
-        "show": true,
-        "values": false
+      "id": 25,
+      "options": {
+        "showHeader": true,
+        "sortBy": []
       },
-      "legendType": "Right side",
-      "links": [],
-      "maxDataPoints": 3,
-      "nullPointMode": "connected",
-      "pieType": "pie",
       "pluginVersion": "7.2.1",
-      "strokeWidth": 1,
       "targets": [
         {
+          "alias": "",
           "bucketAggs": [
             {
               "fake": true,
-              "field": "dhcp.relay_ip.keyword",
-              "id": "3",
+              "field": "src_port",
+              "id": "8",
               "settings": {
                 "min_doc_count": "1",
+                "missing": null,
                 "order": "desc",
                 "orderBy": "_count",
                 "size": "20"
               },
               "type": "terms"
-            },
-            {
-              "field": "@timestamp",
-              "id": "2",
-              "settings": {
-                "interval": "auto",
-                "min_doc_count": 0,
-                "trimEdges": 0
-              },
-              "type": "date_histogram"
             }
           ],
+          "hide": false,
           "metrics": [
             {
-              "field": "select field",
+              "field": "alert.signature.keyword",
               "id": "1",
+              "meta": {},
+              "settings": {},
               "type": "count"
             }
           ],
-          "query": "logstash-dhcp-* AND event_type:dhcp",
+          "query": "logstash-fileinfo-* event_type: fileinfo",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-DHCP-Releays",
-      "type": "grafana-piechart-panel",
-      "valueName": "total"
+      "title": "SN-FILE-Top20SrcPort",
+      "transformations": [],
+      "type": "table"
     },
     {
-      "aliasColors": {},
-      "breakPoint": "50%",
-      "cacheTimeout": null,
-      "combine": {
-        "label": "",
-        "threshold": 0
-      },
-      "datasource": "$Elastcisearch",
+      "datasource": "$elasticsearch",
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "custom": {
             "align": "left",
+            "displayMode": "color-text",
             "filterable": false
           },
           "mappings": [],
@@ -974,78 +897,76 @@
               }
             ]
           },
-          "unit": "string"
+          "unit": "none"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "alert.signature.keyword"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 493
+              }
+            ]
+          }
+        ]
       },
-      "fontSize": "80%",
-      "format": "short",
       "gridPos": {
-        "h": 10,
+        "h": 8,
         "w": 6,
         "x": 18,
-        "y": 27
+        "y": 41
       },
-      "id": 38,
-      "interval": null,
-      "legend": {
-        "percentage": false,
-        "show": true,
-        "values": false
+      "id": 24,
+      "options": {
+        "showHeader": true,
+        "sortBy": []
       },
-      "legendType": "Right side",
-      "links": [],
-      "maxDataPoints": 3,
-      "nullPointMode": "connected",
-      "pieType": "pie",
       "pluginVersion": "7.2.1",
-      "strokeWidth": 1,
       "targets": [
         {
+          "alias": "",
           "bucketAggs": [
             {
               "fake": true,
-              "field": "dhcp.subnet_mask.keyword",
-              "id": "3",
+              "field": "dest_port",
+              "id": "8",
               "settings": {
                 "min_doc_count": "1",
+                "missing": null,
                 "order": "desc",
                 "orderBy": "_count",
                 "size": "20"
               },
               "type": "terms"
-            },
-            {
-              "field": "@timestamp",
-              "id": "2",
-              "settings": {
-                "interval": "auto",
-                "min_doc_count": 0,
-                "trimEdges": 0
-              },
-              "type": "date_histogram"
             }
           ],
+          "hide": false,
           "metrics": [
             {
-              "field": "select field",
+              "field": "alert.signature.keyword",
               "id": "1",
+              "meta": {},
+              "settings": {},
               "type": "count"
             }
           ],
-          "query": "logstash-dhcp-* AND event_type:dhcp",
+          "query": "logstash-fileinfo-* event_type: fileinfo",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-DHCP-SubnetMasks-Served",
-      "type": "grafana-piechart-panel",
-      "valueName": "total"
+      "title": "SN-FILE-Top20DestPort",
+      "transformations": [],
+      "type": "table"
     },
     {
-      "datasource": "$Elastcisearch",
+      "datasource": "$elasticsearch",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -1071,7 +992,7 @@
         "h": 24,
         "w": 24,
         "x": 0,
-        "y": 37
+        "y": 49
       },
       "id": 20,
       "options": {
@@ -1086,35 +1007,44 @@
       "pluginVersion": "7.2.1",
       "targets": [
         {
+          "alias": "",
           "bucketAggs": [
             {
               "field": "@timestamp",
               "id": "2",
               "settings": {
                 "interval": "auto",
-                "min_doc_count": 0,
+                "min_doc_count": "1",
                 "trimEdges": 0
               },
               "type": "date_histogram"
             }
           ],
+          "hide": false,
           "metrics": [
             {
-              "field": "select field",
+              "field": "select metric",
               "id": "1",
               "meta": {},
+              "pipelineAgg": "select metric",
+              "pipelineVariables": [
+                {
+                  "name": "var1",
+                  "pipelineAgg": "select metric"
+                }
+              ],
               "settings": {},
               "type": "logs"
             }
           ],
-          "query": "logstash-dhcp-* AND event_type:dhcp",
+          "query": "logstash-fileinfo-* event_type:fileinfo",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-DHCP-EventsList",
+      "title": "SN-FILE-EventsList",
       "transformations": [
         {
           "id": "filterFieldsByName",
@@ -1124,14 +1054,12 @@
                 "@timestamp",
                 "dest_ip",
                 "dest_port",
-                "dhcp.client_ip",
-                "dhcp.client_mac",
-                "dhcp.dhcp_type",
-                "dhcp.dns_servers",
-                "dhcp.hostname",
-                "dhcp.lease_time",
                 "src_ip",
-                "src_port"
+                "src_port",
+                "app_proto",
+                "fileinfo.size",
+                "fileinfo.filename",
+                "fileinfo.type"
               ]
             }
           }
@@ -1142,15 +1070,12 @@
             "excludeByName": {},
             "indexByName": {
               "@timestamp": 0,
-              "dest_ip": 3,
-              "dest_port": 4,
-              "dhcp.client_ip": 10,
-              "dhcp.client_mac": 6,
-              "dhcp.dhcp_type": 7,
-              "dhcp.dns_servers": 8,
-              "dhcp.hostname": 9,
-              "dhcp.lease_time": 11,
-              "proto": 5,
+              "app_proto": 3,
+              "dest_ip": 4,
+              "dest_port": 5,
+              "fileinfo.filename": 8,
+              "fileinfo.size": 7,
+              "fileinfo.type": 6,
               "src_ip": 1,
               "src_port": 2
             },
@@ -1177,7 +1102,7 @@
         "includeAll": false,
         "label": null,
         "multi": false,
-        "name": "Elastcisearch",
+        "name": "elasticsearch",
         "options": [],
         "query": "elasticsearch",
         "refresh": 1,
@@ -1193,7 +1118,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "SN-DHCP",
-  "uid": "h57F3ZpGk",
-  "version": 21
+  "title": "SN-FILE-Transactions",
+  "uid": "1--MGntMz",
+  "version": 16
 }

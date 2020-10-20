@@ -1,4 +1,31 @@
 {
+  "__inputs": [],
+  "__requires": [
+    {
+      "type": "datasource",
+      "id": "elasticsearch",
+      "name": "Elasticsearch",
+      "version": "1.0.0"
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "7.2.1"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -15,8 +42,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 58,
-  "iteration": 1603219665317,
+  "id": null,
+  "iteration": 1603222689361,
   "links": [],
   "panels": [
     {
@@ -92,6 +119,7 @@
           "alias": "",
           "bucketAggs": [
             {
+              "$$hashKey": "object:11376",
               "fake": true,
               "id": "4",
               "query": "*",
@@ -150,6 +178,7 @@
               "type": "filters"
             },
             {
+              "$$hashKey": "object:11377",
               "fake": true,
               "field": "@timestamp",
               "id": "3",
@@ -164,6 +193,7 @@
           "hide": false,
           "metrics": [
             {
+              "$$hashKey": "object:11374",
               "field": "even",
               "id": "1",
               "meta": {},
@@ -598,6 +628,7 @@
           "alias": "",
           "bucketAggs": [
             {
+              "$$hashKey": "object:11428",
               "fake": true,
               "field": "alert.category.keyword",
               "id": "4",
@@ -610,6 +641,7 @@
               "type": "terms"
             },
             {
+              "$$hashKey": "object:11429",
               "fake": true,
               "field": "@timestamp",
               "id": "3",
@@ -625,6 +657,7 @@
           "hide": false,
           "metrics": [
             {
+              "$$hashKey": "object:11426",
               "field": "select metric",
               "id": "1",
               "meta": {},

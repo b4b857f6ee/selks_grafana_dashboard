@@ -1,4 +1,37 @@
 {
+  "__inputs": [],
+  "__requires": [
+    {
+      "type": "datasource",
+      "id": "elasticsearch",
+      "name": "Elasticsearch",
+      "version": "1.0.0"
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "7.2.1"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -15,14 +48,13 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 65,
-  "iteration": 1603219675795,
+  "id": null,
+  "iteration": 1603222694361,
   "links": [],
   "panels": [
     {
       "aliasColors": {},
       "bars": false,
-      "cacheTimeout": null,
       "dashLength": 10,
       "dashes": false,
       "datasource": "$elasticsearch",
@@ -34,15 +66,19 @@
           },
           "mappings": [],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "green",
                 "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
               }
             ]
           },
-          "unit": "string"
+          "unit": "none"
         },
         "overrides": []
       },
@@ -50,13 +86,12 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 9,
-        "w": 12,
+        "w": 24,
         "x": 0,
         "y": 0
       },
       "hiddenSeries": false,
-      "id": 5,
-      "interval": null,
+      "id": 2,
       "legend": {
         "alignAsTable": false,
         "avg": false,
@@ -67,21 +102,20 @@
         "min": false,
         "rightSide": true,
         "show": true,
+        "sideWidth": 150,
         "total": false,
         "values": false
       },
       "lines": true,
       "linewidth": 2,
-      "links": [],
-      "maxDataPoints": 3,
-      "nullPointMode": "null",
+      "nullPointMode": "connected",
       "options": {
         "alertThreshold": false
       },
       "percentage": false,
       "pluginVersion": "7.2.1",
       "pointradius": 2,
-      "points": false,
+      "points": true,
       "renderer": "flot",
       "seriesOverrides": [],
       "spaceLength": 10,
@@ -92,25 +126,13 @@
           "alias": "",
           "bucketAggs": [
             {
-              "fake": true,
-              "field": "vlan",
-              "id": "4",
-              "settings": {
-                "min_doc_count": "1",
-                "order": "desc",
-                "orderBy": "_term",
-                "size": "10"
-              },
-              "type": "terms"
-            },
-            {
+              "$$hashKey": "object:12842",
               "fake": true,
               "field": "@timestamp",
               "id": "3",
               "settings": {
                 "interval": "30m",
-                "min_doc_count": "0",
-                "offset": "",
+                "min_doc_count": "1",
                 "trimEdges": 0
               },
               "type": "date_histogram"
@@ -119,15 +141,23 @@
           "hide": false,
           "metrics": [
             {
-              "field": "select metric",
+              "$$hashKey": "object:12838",
+              "field": "stats.capture.kernel_drops_delta",
               "id": "1",
               "meta": {},
-              "pipelineAgg": "select metric",
               "settings": {},
-              "type": "count"
+              "type": "sum"
+            },
+            {
+              "$$hashKey": "object:12839",
+              "field": "stats.capture.kernel_packets_delta",
+              "id": "4",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
             }
           ],
-          "query": "event_type:alert",
+          "query": "* event_type: stats",
           "refId": "A",
           "timeField": "@timestamp"
         }
@@ -136,9 +166,9 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "SN-PerVLAN-ALERTEventsOverTime",
+      "title": "SN-Stats-KernelPacketsAndDrops-Deltas",
       "tooltip": {
-        "shared": true,
+        "shared": false,
         "sort": 0,
         "value_type": "individual"
       },
@@ -152,11 +182,11 @@
       },
       "yaxes": [
         {
-          "format": "string",
+          "format": "none",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -165,7 +195,7 @@
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
       ],
       "yaxis": {
@@ -176,7 +206,6 @@
     {
       "aliasColors": {},
       "bars": false,
-      "cacheTimeout": null,
       "dashLength": 10,
       "dashes": false,
       "datasource": "$elasticsearch",
@@ -188,29 +217,32 @@
           },
           "mappings": [],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "green",
                 "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
               }
             ]
           },
-          "unit": "string"
+          "unit": "none"
         },
         "overrides": []
       },
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
-        "h": 9,
+        "h": 8,
         "w": 12,
-        "x": 12,
-        "y": 0
+        "x": 0,
+        "y": 9
       },
       "hiddenSeries": false,
       "id": 29,
-      "interval": null,
       "legend": {
         "alignAsTable": false,
         "avg": false,
@@ -221,21 +253,20 @@
         "min": false,
         "rightSide": true,
         "show": true,
+        "sideWidth": 150,
         "total": false,
         "values": false
       },
       "lines": true,
       "linewidth": 2,
-      "links": [],
-      "maxDataPoints": 3,
-      "nullPointMode": "null",
+      "nullPointMode": "connected",
       "options": {
         "alertThreshold": false
       },
       "percentage": false,
       "pluginVersion": "7.2.1",
       "pointradius": 2,
-      "points": false,
+      "points": true,
       "renderer": "flot",
       "seriesOverrides": [],
       "spaceLength": 10,
@@ -247,24 +278,11 @@
           "bucketAggs": [
             {
               "fake": true,
-              "field": "vlan",
-              "id": "4",
-              "settings": {
-                "min_doc_count": "1",
-                "order": "desc",
-                "orderBy": "_term",
-                "size": "10"
-              },
-              "type": "terms"
-            },
-            {
-              "fake": true,
               "field": "@timestamp",
               "id": "3",
               "settings": {
                 "interval": "30m",
-                "min_doc_count": "0",
-                "offset": "",
+                "min_doc_count": "1",
                 "trimEdges": 0
               },
               "type": "date_histogram"
@@ -273,15 +291,35 @@
           "hide": false,
           "metrics": [
             {
-              "field": "select metric",
+              "field": "stats.dns.memuse_delta",
               "id": "1",
               "meta": {},
-              "pipelineAgg": "select metric",
               "settings": {},
-              "type": "count"
+              "type": "sum"
+            },
+            {
+              "field": "stats.http.memuse_delta",
+              "id": "4",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
+            },
+            {
+              "field": "stats.tcp.memuse_delta",
+              "id": "5",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
+            },
+            {
+              "field": "stats.tcp.reassembly_memuse_delta",
+              "id": "6",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
             }
           ],
-          "query": "event_type: alert AND vlan:*",
+          "query": "* event_type: stats",
           "refId": "A",
           "timeField": "@timestamp"
         }
@@ -290,9 +328,9 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "SN-Alert-ByVLANID",
+      "title": "SN-Stats-memuse-Deltas",
       "tooltip": {
-        "shared": true,
+        "shared": false,
         "sort": 0,
         "value_type": "individual"
       },
@@ -306,8 +344,8 @@
       },
       "yaxes": [
         {
-          "format": "string",
-          "label": null,
+          "format": "none",
+          "label": "",
           "logBase": 1,
           "max": null,
           "min": null,
@@ -319,7 +357,7 @@
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
       ],
       "yaxis": {
@@ -330,7 +368,6 @@
     {
       "aliasColors": {},
       "bars": false,
-      "cacheTimeout": null,
       "dashLength": 10,
       "dashes": false,
       "datasource": "$elasticsearch",
@@ -342,29 +379,32 @@
           },
           "mappings": [],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "green",
                 "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
               }
             ]
           },
-          "unit": "string"
+          "unit": "none"
         },
         "overrides": []
       },
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
-        "h": 9,
+        "h": 8,
         "w": 12,
-        "x": 0,
+        "x": 12,
         "y": 9
       },
       "hiddenSeries": false,
       "id": 30,
-      "interval": null,
       "legend": {
         "alignAsTable": false,
         "avg": false,
@@ -375,21 +415,20 @@
         "min": false,
         "rightSide": true,
         "show": true,
+        "sideWidth": 150,
         "total": false,
         "values": false
       },
       "lines": true,
       "linewidth": 2,
-      "links": [],
-      "maxDataPoints": 3,
-      "nullPointMode": "null",
+      "nullPointMode": "connected",
       "options": {
         "alertThreshold": false
       },
       "percentage": false,
       "pluginVersion": "7.2.1",
       "pointradius": 2,
-      "points": false,
+      "points": true,
       "renderer": "flot",
       "seriesOverrides": [],
       "spaceLength": 10,
@@ -399,26 +438,13 @@
         {
           "alias": "",
           "bucketAggs": [
-            {
-              "fake": true,
-              "field": "vlan",
-              "id": "4",
-              "settings": {
-                "min_doc_count": "1",
-                "order": "desc",
-                "orderBy": "_term",
-                "size": "10"
-              },
-              "type": "terms"
-            },
             {
               "fake": true,
               "field": "@timestamp",
               "id": "3",
               "settings": {
                 "interval": "30m",
-                "min_doc_count": "0",
-                "offset": "",
+                "min_doc_count": "1",
                 "trimEdges": 0
               },
               "type": "date_histogram"
@@ -427,15 +453,49 @@
           "hide": false,
           "metrics": [
             {
-              "field": "select metric",
+              "field": "stats.dns.memcap_global_delta",
               "id": "1",
               "meta": {},
-              "pipelineAgg": "select metric",
               "settings": {},
-              "type": "count"
+              "type": "sum"
+            },
+            {
+              "field": "stats.dns.memcap_state_delta",
+              "id": "4",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
+            },
+            {
+              "field": "stats.flow.memcap_delta",
+              "id": "5",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
+            },
+            {
+              "field": "stats.http.memcap_delta",
+              "id": "6",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
+            },
+            {
+              "field": "stats.tcp.segment_memcap_drop_delta",
+              "id": "7",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
+            },
+            {
+              "field": "stats.tcp.ssn_memcap_drop_delta",
+              "id": "8",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
             }
           ],
-          "query": "logstash-* event_type: smtp",
+          "query": "* event_type: stats",
           "refId": "A",
           "timeField": "@timestamp"
         }
@@ -444,9 +504,9 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "SN-PerVLAN-SMTPEventsOverTime",
+      "title": "SN-Stats-Memcap-Deltas",
       "tooltip": {
-        "shared": true,
+        "shared": false,
         "sort": 0,
         "value_type": "individual"
       },
@@ -460,8 +520,8 @@
       },
       "yaxes": [
         {
-          "format": "string",
-          "label": null,
+          "format": "none",
+          "label": "",
           "logBase": 1,
           "max": null,
           "min": null,
@@ -473,7 +533,7 @@
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
       ],
       "yaxis": {
@@ -484,7 +544,6 @@
     {
       "aliasColors": {},
       "bars": false,
-      "cacheTimeout": null,
       "dashLength": 10,
       "dashes": false,
       "datasource": "$elasticsearch",
@@ -496,29 +555,32 @@
           },
           "mappings": [],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "green",
                 "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
               }
             ]
           },
-          "unit": "string"
+          "unit": "none"
         },
         "overrides": []
       },
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
-        "h": 9,
+        "h": 8,
         "w": 12,
-        "x": 12,
-        "y": 9
+        "x": 0,
+        "y": 17
       },
       "hiddenSeries": false,
-      "id": 26,
-      "interval": null,
+      "id": 31,
       "legend": {
         "alignAsTable": false,
         "avg": false,
@@ -529,13 +591,12 @@
         "min": false,
         "rightSide": true,
         "show": true,
+        "sideWidth": 150,
         "total": false,
         "values": false
       },
       "lines": true,
       "linewidth": 2,
-      "links": [],
-      "maxDataPoints": 3,
       "nullPointMode": "connected",
       "options": {
         "alertThreshold": false
@@ -555,24 +616,11 @@
           "bucketAggs": [
             {
               "fake": true,
-              "field": "vlan",
-              "id": "4",
-              "settings": {
-                "min_doc_count": "1",
-                "order": "desc",
-                "orderBy": "_term",
-                "size": "20"
-              },
-              "type": "terms"
-            },
-            {
-              "fake": true,
               "field": "@timestamp",
               "id": "3",
               "settings": {
-                "interval": "10m",
-                "min_doc_count": "0",
-                "offset": "",
+                "interval": "30m",
+                "min_doc_count": "1",
                 "trimEdges": 0
               },
               "type": "date_histogram"
@@ -581,15 +629,21 @@
           "hide": false,
           "metrics": [
             {
-              "field": "select metric",
+              "field": "stats.capture.kernel_packets",
               "id": "1",
               "meta": {},
-              "pipelineAgg": "select metric",
               "settings": {},
-              "type": "count"
+              "type": "max"
+            },
+            {
+              "field": "stats.tcp.reassembly_gap",
+              "id": "4",
+              "meta": {},
+              "settings": {},
+              "type": "max"
             }
           ],
-          "query": "event_type: http",
+          "query": "* event_type: stats",
           "refId": "A",
           "timeField": "@timestamp"
         }
@@ -598,9 +652,9 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "SN-PerVLAN-HTTPEventsOverTime",
+      "title": "SN-Stats-CapturedPktsVsGaps",
       "tooltip": {
-        "shared": true,
+        "shared": false,
         "sort": 0,
         "value_type": "individual"
       },
@@ -614,8 +668,8 @@
       },
       "yaxes": [
         {
-          "format": "string",
-          "label": null,
+          "format": "none",
+          "label": "",
           "logBase": 1,
           "max": null,
           "min": null,
@@ -627,7 +681,7 @@
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
       ],
       "yaxis": {
@@ -638,7 +692,6 @@
     {
       "aliasColors": {},
       "bars": false,
-      "cacheTimeout": null,
       "dashLength": 10,
       "dashes": false,
       "datasource": "$elasticsearch",
@@ -650,29 +703,32 @@
           },
           "mappings": [],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "green",
                 "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
               }
             ]
           },
-          "unit": "string"
+          "unit": "none"
         },
         "overrides": []
       },
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
-        "h": 9,
+        "h": 8,
         "w": 12,
-        "x": 0,
-        "y": 18
+        "x": 12,
+        "y": 17
       },
       "hiddenSeries": false,
       "id": 32,
-      "interval": null,
       "legend": {
         "alignAsTable": false,
         "avg": false,
@@ -683,13 +739,12 @@
         "min": false,
         "rightSide": true,
         "show": true,
+        "sideWidth": 150,
         "total": false,
         "values": false
       },
       "lines": true,
       "linewidth": 2,
-      "links": [],
-      "maxDataPoints": 3,
       "nullPointMode": "connected",
       "options": {
         "alertThreshold": false
@@ -709,24 +764,11 @@
           "bucketAggs": [
             {
               "fake": true,
-              "field": "vlan",
-              "id": "4",
-              "settings": {
-                "min_doc_count": "1",
-                "order": "desc",
-                "orderBy": "_term",
-                "size": "20"
-              },
-              "type": "terms"
-            },
-            {
-              "fake": true,
               "field": "@timestamp",
               "id": "3",
               "settings": {
-                "interval": "10m",
-                "min_doc_count": "0",
-                "offset": "",
+                "interval": "30m",
+                "min_doc_count": "1",
                 "trimEdges": 0
               },
               "type": "date_histogram"
@@ -735,15 +777,21 @@
           "hide": false,
           "metrics": [
             {
-              "field": "select metric",
+              "field": "stats.decoder.avg_pkt_size",
               "id": "1",
               "meta": {},
-              "pipelineAgg": "select metric",
               "settings": {},
-              "type": "count"
+              "type": "max"
+            },
+            {
+              "field": "stats.decoder.max_pkt_size",
+              "id": "4",
+              "meta": {},
+              "settings": {},
+              "type": "max"
             }
           ],
-          "query": "event_type: smtp",
+          "query": "* event_type: stats",
           "refId": "A",
           "timeField": "@timestamp"
         }
@@ -752,9 +800,9 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "SN-SMTP-Top20VLANsOverTime",
+      "title": "SN-Stats-DecoderAvgMaxPktSize",
       "tooltip": {
-        "shared": true,
+        "shared": false,
         "sort": 0,
         "value_type": "individual"
       },
@@ -768,8 +816,8 @@
       },
       "yaxes": [
         {
-          "format": "string",
-          "label": null,
+          "format": "none",
+          "label": "",
           "logBase": 1,
           "max": null,
           "min": null,
@@ -781,7 +829,7 @@
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
       ],
       "yaxis": {
@@ -790,13 +838,6 @@
       }
     },
     {
-      "aliasColors": {},
-      "breakPoint": "50%",
-      "cacheTimeout": null,
-      "combine": {
-        "label": "Others",
-        "threshold": 0
-      },
       "datasource": "$elasticsearch",
       "fieldConfig": {
         "defaults": {
@@ -806,7 +847,7 @@
           },
           "mappings": [],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "green",
@@ -814,55 +855,43 @@
               }
             ]
           },
-          "unit": "string"
+          "unit": "none"
         },
         "overrides": []
       },
-      "fontSize": "80%",
-      "format": "short",
       "gridPos": {
-        "h": 9,
+        "h": 8,
         "w": 12,
-        "x": 12,
-        "y": 18
+        "x": 0,
+        "y": 25
       },
       "id": 33,
-      "interval": null,
-      "legend": {
-        "show": true,
-        "values": false
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "max"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
       },
-      "legendType": "Right side",
-      "links": [],
-      "maxDataPoints": 3,
-      "nullPointMode": "connected",
-      "pieType": "pie",
       "pluginVersion": "7.2.1",
-      "strokeWidth": 1,
       "targets": [
         {
           "alias": "",
           "bucketAggs": [
-            {
-              "fake": true,
-              "field": "vlan",
-              "id": "4",
-              "settings": {
-                "min_doc_count": "1",
-                "order": "desc",
-                "orderBy": "_term",
-                "size": "20"
-              },
-              "type": "terms"
-            },
             {
               "fake": true,
               "field": "@timestamp",
               "id": "3",
               "settings": {
                 "interval": "auto",
-                "min_doc_count": "0",
-                "offset": "",
+                "min_doc_count": 0,
                 "trimEdges": 0
               },
               "type": "date_histogram"
@@ -871,31 +900,31 @@
           "hide": false,
           "metrics": [
             {
-              "field": "select metric",
+              "field": "stats.decoder.bytes",
               "id": "1",
               "meta": {},
-              "pipelineAgg": "select metric",
               "settings": {},
-              "type": "count"
+              "type": "max"
+            },
+            {
+              "field": "stats.decoder.pkts",
+              "id": "4",
+              "meta": {},
+              "settings": {},
+              "type": "max"
             }
           ],
-          "query": "logstash-alert-* AND event_type: alert AND vlan:*",
+          "query": "* event_type:stats",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-Alert-ByVLANIDTop20",
-      "type": "grafana-piechart-panel",
-      "valueName": "current"
+      "title": "SN-Stats-DecoderBytes-Packets",
+      "type": "stat"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "cacheTimeout": null,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": "$elasticsearch",
       "fieldConfig": {
         "defaults": {
@@ -903,9 +932,10 @@
             "align": "left",
             "filterable": false
           },
+          "displayName": "Max stats.capture.kernel_packets",
           "mappings": [],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "green",
@@ -913,75 +943,43 @@
               }
             ]
           },
-          "unit": "string"
+          "unit": "none"
         },
         "overrides": []
       },
-      "fill": 0,
-      "fillGradient": 0,
       "gridPos": {
-        "h": 9,
+        "h": 8,
         "w": 12,
-        "x": 0,
-        "y": 27
+        "x": 12,
+        "y": 25
       },
-      "hiddenSeries": false,
       "id": 34,
-      "interval": null,
-      "legend": {
-        "alignAsTable": false,
-        "avg": false,
-        "current": false,
-        "hideEmpty": false,
-        "hideZero": false,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 2,
-      "links": [],
-      "maxDataPoints": 3,
-      "nullPointMode": "connected",
       "options": {
-        "alertThreshold": false
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "max"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
       },
-      "percentage": false,
       "pluginVersion": "7.2.1",
-      "pointradius": 2,
-      "points": true,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
       "targets": [
         {
           "alias": "",
           "bucketAggs": [
             {
               "fake": true,
-              "field": "vlan",
-              "id": "4",
-              "settings": {
-                "min_doc_count": "1",
-                "order": "desc",
-                "orderBy": "_term",
-                "size": "10"
-              },
-              "type": "terms"
-            },
-            {
-              "fake": true,
               "field": "@timestamp",
               "id": "3",
               "settings": {
-                "interval": "10m",
-                "min_doc_count": "1",
-                "offset": "",
+                "interval": "auto",
+                "min_doc_count": 0,
                 "trimEdges": 0
               },
               "type": "date_histogram"
@@ -990,64 +988,26 @@
           "hide": false,
           "metrics": [
             {
-              "field": "select metric",
+              "field": "stats.capture.kernel_packets",
               "id": "1",
               "meta": {},
-              "pipelineAgg": "select metric",
               "settings": {},
-              "type": "count"
+              "type": "max"
             }
           ],
-          "query": "event_type: ssh",
+          "query": "* event_type:stats",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
-      "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
-      "title": "SN-PerVLAN-SSHEventsOverTime",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "string",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      "title": "SN-Stats-TotalKernelPackets",
+      "type": "stat"
     },
     {
       "aliasColors": {},
       "bars": false,
-      "cacheTimeout": null,
       "dashLength": 10,
       "dashes": false,
       "datasource": "$elasticsearch",
@@ -1059,15 +1019,19 @@
           },
           "mappings": [],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "green",
                 "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
               }
             ]
           },
-          "unit": "string"
+          "unit": "none"
         },
         "overrides": []
       },
@@ -1075,13 +1039,12 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 9,
-        "w": 12,
-        "x": 12,
-        "y": 27
+        "w": 24,
+        "x": 0,
+        "y": 33
       },
       "hiddenSeries": false,
       "id": 35,
-      "interval": null,
       "legend": {
         "alignAsTable": false,
         "avg": false,
@@ -1092,13 +1055,12 @@
         "min": false,
         "rightSide": true,
         "show": true,
+        "sideWidth": 150,
         "total": false,
         "values": false
       },
       "lines": true,
       "linewidth": 2,
-      "links": [],
-      "maxDataPoints": 3,
       "nullPointMode": "connected",
       "options": {
         "alertThreshold": false
@@ -1116,180 +1078,13 @@
         {
           "alias": "",
           "bucketAggs": [
-            {
-              "fake": true,
-              "field": "vlan",
-              "id": "4",
-              "settings": {
-                "min_doc_count": "1",
-                "order": "desc",
-                "orderBy": "_term",
-                "size": "10"
-              },
-              "type": "terms"
-            },
-            {
-              "fake": true,
-              "field": "@timestamp",
-              "id": "3",
-              "settings": {
-                "interval": "10m",
-                "min_doc_count": "1",
-                "offset": "",
-                "trimEdges": 0
-              },
-              "type": "date_histogram"
-            }
-          ],
-          "hide": false,
-          "metrics": [
-            {
-              "field": "select metric",
-              "id": "1",
-              "meta": {},
-              "pipelineAgg": "select metric",
-              "settings": {},
-              "type": "count"
-            }
-          ],
-          "query": "logstash-smtp-* AND event_type: smtp",
-          "refId": "A",
-          "timeField": "@timestamp"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "SN-SMTP-Top20VLAN",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "string",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "cacheTimeout": null,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "$elasticsearch",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "left",
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "string"
-        },
-        "overrides": []
-      },
-      "fill": 0,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 0,
-        "y": 36
-      },
-      "hiddenSeries": false,
-      "id": 31,
-      "interval": null,
-      "legend": {
-        "alignAsTable": false,
-        "avg": false,
-        "current": false,
-        "hideEmpty": false,
-        "hideZero": false,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 2,
-      "links": [],
-      "maxDataPoints": 3,
-      "nullPointMode": "connected",
-      "options": {
-        "alertThreshold": false
-      },
-      "percentage": false,
-      "pluginVersion": "7.2.1",
-      "pointradius": 2,
-      "points": true,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "alias": "",
-          "bucketAggs": [
-            {
-              "fake": true,
-              "field": "vlan",
-              "id": "4",
-              "settings": {
-                "min_doc_count": "1",
-                "order": "asc",
-                "orderBy": "_term",
-                "size": "10"
-              },
-              "type": "terms"
-            },
             {
               "fake": true,
               "field": "@timestamp",
               "id": "3",
               "settings": {
                 "interval": "30m",
-                "min_doc_count": "0",
-                "offset": "",
+                "min_doc_count": "1",
                 "trimEdges": 0
               },
               "type": "date_histogram"
@@ -1298,15 +1093,133 @@
           "hide": false,
           "metrics": [
             {
-              "field": "select metric",
+              "field": "stats.decoder.erspan_delta",
               "id": "1",
               "meta": {},
-              "pipelineAgg": "select metric",
               "settings": {},
-              "type": "count"
+              "type": "sum"
+            },
+            {
+              "field": "stats.decoder.ethernet_delta",
+              "id": "4",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
+            },
+            {
+              "field": "stats.decoder.ethernet_delta",
+              "id": "5",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
+            },
+            {
+              "field": "stats.decoder.ethernet_delta",
+              "id": "6",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
+            },
+            {
+              "field": "stats.decoder.ethernet_delta",
+              "id": "7",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
+            },
+            {
+              "field": "stats.decoder.ipv4_delta",
+              "id": "8",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
+            },
+            {
+              "field": "stats.decoder.ipv4_in_ipv6_delta",
+              "id": "9",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
+            },
+            {
+              "field": "stats.decoder.ipv6_delta",
+              "id": "10",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
+            },
+            {
+              "field": "stats.decoder.ipv6_in_ipv6_delta",
+              "id": "11",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
+            },
+            {
+              "field": "stats.decoder.mpls_delta",
+              "id": "12",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
+            },
+            {
+              "field": "stats.decoder.ppp_delta",
+              "id": "13",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
+            },
+            {
+              "field": "stats.decoder.pppoe_delta",
+              "id": "14",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
+            },
+            {
+              "field": "stats.decoder.sctp_delta",
+              "id": "15",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
+            },
+            {
+              "field": "stats.decoder.sll_delta",
+              "id": "16",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
+            },
+            {
+              "field": "stats.decoder.tcp_delta",
+              "id": "17",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
+            },
+            {
+              "field": "stats.decoder.udp_delta",
+              "id": "18",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
+            },
+            {
+              "field": "stats.decoder.vlan_delta",
+              "id": "19",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
+            },
+            {
+              "field": "stats.decoder.vlan_qinq_delta",
+              "id": "20",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
             }
           ],
-          "query": "event_type: fileinfo",
+          "query": "* event_type: stats",
           "refId": "A",
           "timeField": "@timestamp"
         }
@@ -1315,9 +1228,9 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "SN-PerVLAN-FILETransEventsOverTime",
+      "title": "SN-Stats-DecoderProto-Deltas",
       "tooltip": {
-        "shared": true,
+        "shared": false,
         "sort": 0,
         "value_type": "individual"
       },
@@ -1331,8 +1244,8 @@
       },
       "yaxes": [
         {
-          "format": "string",
-          "label": null,
+          "format": "none",
+          "label": "",
           "logBase": 1,
           "max": null,
           "min": null,
@@ -1344,7 +1257,7 @@
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
       ],
       "yaxis": {
@@ -1355,7 +1268,6 @@
     {
       "aliasColors": {},
       "bars": false,
-      "cacheTimeout": null,
       "dashLength": 10,
       "dashes": false,
       "datasource": "$elasticsearch",
@@ -1367,29 +1279,32 @@
           },
           "mappings": [],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "green",
                 "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
               }
             ]
           },
-          "unit": "string"
+          "unit": "none"
         },
         "overrides": []
       },
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
-        "h": 9,
+        "h": 8,
         "w": 12,
-        "x": 12,
-        "y": 36
+        "x": 0,
+        "y": 42
       },
       "hiddenSeries": false,
       "id": 36,
-      "interval": null,
       "legend": {
         "alignAsTable": false,
         "avg": false,
@@ -1400,13 +1315,12 @@
         "min": false,
         "rightSide": true,
         "show": true,
+        "sideWidth": 150,
         "total": false,
         "values": false
       },
       "lines": true,
       "linewidth": 2,
-      "links": [],
-      "maxDataPoints": 3,
       "nullPointMode": "connected",
       "options": {
         "alertThreshold": false
@@ -1426,24 +1340,11 @@
           "bucketAggs": [
             {
               "fake": true,
-              "field": "vlan",
-              "id": "4",
-              "settings": {
-                "min_doc_count": "1",
-                "order": "desc",
-                "orderBy": "_term",
-                "size": "20"
-              },
-              "type": "terms"
-            },
-            {
-              "fake": true,
               "field": "@timestamp",
               "id": "3",
               "settings": {
                 "interval": "30m",
                 "min_doc_count": "1",
-                "offset": "",
                 "trimEdges": 0
               },
               "type": "date_histogram"
@@ -1452,15 +1353,21 @@
           "hide": false,
           "metrics": [
             {
-              "field": "select metric",
+              "field": "stats.flow.emerg_mode_entered",
               "id": "1",
               "meta": {},
-              "pipelineAgg": "select metric",
               "settings": {},
-              "type": "count"
+              "type": "sum"
+            },
+            {
+              "field": "stats.flow.emerg_mode_over",
+              "id": "4",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
             }
           ],
-          "query": "logstash-* event_type: dns",
+          "query": "* stats.flow.emerg_mode_entered and stats.flow.emerg_mode_over",
           "refId": "A",
           "timeField": "@timestamp"
         }
@@ -1469,9 +1376,9 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "SN-PerVLAN-DNSEventsOverTime",
+      "title": "SN-Stats-EmergencyMode",
       "tooltip": {
-        "shared": true,
+        "shared": false,
         "sort": 0,
         "value_type": "individual"
       },
@@ -1485,8 +1392,8 @@
       },
       "yaxes": [
         {
-          "format": "string",
-          "label": null,
+          "format": "none",
+          "label": "",
           "logBase": 1,
           "max": null,
           "min": null,
@@ -1498,7 +1405,7 @@
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
       ],
       "yaxis": {
@@ -1509,7 +1416,6 @@
     {
       "aliasColors": {},
       "bars": false,
-      "cacheTimeout": null,
       "dashLength": 10,
       "dashes": false,
       "datasource": "$elasticsearch",
@@ -1521,29 +1427,32 @@
           },
           "mappings": [],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "green",
                 "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
               }
             ]
           },
-          "unit": "string"
+          "unit": "none"
         },
         "overrides": []
       },
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
-        "h": 9,
+        "h": 8,
         "w": 12,
         "x": 12,
-        "y": 45
+        "y": 42
       },
       "hiddenSeries": false,
       "id": 37,
-      "interval": null,
       "legend": {
         "alignAsTable": false,
         "avg": false,
@@ -1554,13 +1463,12 @@
         "min": false,
         "rightSide": true,
         "show": true,
+        "sideWidth": 150,
         "total": false,
         "values": false
       },
       "lines": true,
       "linewidth": 2,
-      "links": [],
-      "maxDataPoints": 3,
       "nullPointMode": "connected",
       "options": {
         "alertThreshold": false
@@ -1580,24 +1488,11 @@
           "bucketAggs": [
             {
               "fake": true,
-              "field": "vlan",
-              "id": "4",
-              "settings": {
-                "min_doc_count": "1",
-                "order": "desc",
-                "orderBy": "_term",
-                "size": "20"
-              },
-              "type": "terms"
-            },
-            {
-              "fake": true,
               "field": "@timestamp",
               "id": "3",
               "settings": {
                 "interval": "30m",
                 "min_doc_count": "1",
-                "offset": "",
                 "trimEdges": 0
               },
               "type": "date_histogram"
@@ -1606,15 +1501,21 @@
           "hide": false,
           "metrics": [
             {
-              "field": "select metric",
+              "field": "stats.defrag.ipv4.fragments",
               "id": "1",
               "meta": {},
-              "pipelineAgg": "select metric",
               "settings": {},
-              "type": "count"
+              "type": "sum"
+            },
+            {
+              "field": "stats.defrag.ipv6.fragments",
+              "id": "4",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
             }
           ],
-          "query": "logstash-* event_type: tls",
+          "query": "* event_type: stats",
           "refId": "A",
           "timeField": "@timestamp"
         }
@@ -1623,9 +1524,9 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "SN-PerVLAN-TLSEventsOverTime",
+      "title": "SN-Stats-ipv4-ipv6-fragments",
       "tooltip": {
-        "shared": true,
+        "shared": false,
         "sort": 0,
         "value_type": "individual"
       },
@@ -1639,8 +1540,8 @@
       },
       "yaxes": [
         {
-          "format": "string",
-          "label": null,
+          "format": "none",
+          "label": "",
           "logBase": 1,
           "max": null,
           "min": null,
@@ -1652,13 +1553,377 @@
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
       ],
       "yaxis": {
         "align": false,
         "alignLevel": null
       }
+    },
+    {
+      "datasource": "$elasticsearch",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 50
+      },
+      "id": 38,
+      "options": {
+        "frameIndex": 2,
+        "showHeader": true
+      },
+      "pluginVersion": "7.2.1",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "fake": true,
+              "field": "@timestamp",
+              "id": "3",
+              "settings": {
+                "interval": "30s",
+                "min_doc_count": 0,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "hide": false,
+          "metrics": [
+            {
+              "field": "stats.defrag.ipv4.fragments",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
+            },
+            {
+              "field": "stats.defrag.ipv6.fragments",
+              "id": "4",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
+            },
+            {
+              "field": "stats.defrag.max_frag_hits",
+              "id": "5",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
+            }
+          ],
+          "query": "* event_type: stats",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "SN-Stats-Frags",
+      "transformations": [
+        {
+          "id": "seriesToColumns",
+          "options": {}
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "$elasticsearch",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "left",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 50
+      },
+      "hiddenSeries": false,
+      "id": 39,
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "hideEmpty": false,
+        "hideZero": false,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sideWidth": 150,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "connected",
+      "options": {
+        "alertThreshold": false
+      },
+      "percentage": false,
+      "pluginVersion": "7.2.1",
+      "pointradius": 2,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "fake": true,
+              "field": "@timestamp",
+              "id": "3",
+              "settings": {
+                "interval": "30m",
+                "min_doc_count": "1",
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "hide": false,
+          "metrics": [
+            {
+              "field": "stats.defrag.ipv4.fragments_delta",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
+            },
+            {
+              "field": "stats.defrag.ipv6.fragments_delta",
+              "id": "4",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
+            },
+            {
+              "field": "stats.defrag.max_frag_hits_delta",
+              "id": "5",
+              "meta": {},
+              "settings": {},
+              "type": "sum"
+            }
+          ],
+          "query": "* event_type: stats",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "SN-Stats-Frags-Deltas",
+      "tooltip": {
+        "shared": false,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "none",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": "$elasticsearch",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "displayMode": "color-text",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 24,
+        "w": 24,
+        "x": 0,
+        "y": 58
+      },
+      "id": 20,
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "alert.category"
+          }
+        ]
+      },
+      "pluginVersion": "7.2.1",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto",
+                "min_doc_count": 0,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "hide": false,
+          "metrics": [
+            {
+              "field": "select metric",
+              "id": "1",
+              "meta": {},
+              "pipelineAgg": "select metric",
+              "pipelineVariables": [
+                {
+                  "name": "var1",
+                  "pipelineAgg": "select metric"
+                }
+              ],
+              "settings": {},
+              "type": "logs"
+            }
+          ],
+          "query": "event_type:stats",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "SN-STATS-EventsList",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "@timestamp",
+                "dest_ip",
+                "dest_port",
+                "proto",
+                "src_ip",
+                "src_port",
+                "alert.category",
+                "alert.signature",
+                "alert.signature_id"
+              ]
+            }
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {
+              "@timestamp": 0,
+              "alert.category": 1,
+              "dest_ip": 5,
+              "dest_port": 6,
+              "event_type": 7,
+              "proto": 4,
+              "src_ip": 2,
+              "src_port": 3
+            },
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
     }
   ],
   "refresh": false,
@@ -1693,7 +1958,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "SN-VLAN",
-  "uid": "_op0XntMz",
-  "version": 15
+  "title": "SN-STATS",
+  "uid": "xfPERVpMk",
+  "version": 18
 }

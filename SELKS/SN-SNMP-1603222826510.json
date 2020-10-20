@@ -1,4 +1,43 @@
 {
+  "__inputs": [],
+  "__requires": [
+    {
+      "type": "datasource",
+      "id": "elasticsearch",
+      "name": "Elasticsearch",
+      "version": "1.0.0"
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "7.2.1"
+    },
+    {
+      "type": "panel",
+      "id": "grafana-piechart-panel",
+      "name": "Pie Chart",
+      "version": "1.3.9"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -15,23 +54,12 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 49,
-  "iteration": 1603219660402,
+  "id": null,
+  "iteration": 1603222693403,
   "links": [],
   "panels": [
     {
-      "circleMaxSize": 30,
-      "circleMinSize": 2,
-      "colors": [
-        "#FADE2A",
-        "#FADE2A",
-        "#F2495C"
-      ],
-      "datasource": "$Elasticsearch",
-      "decimals": 0,
-      "esGeoPoint": "geoip.location",
-      "esLocationName": "",
-      "esMetric": "Count",
+      "datasource": "$elasticsearch",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -39,66 +67,64 @@
             "filterable": false
           },
           "mappings": [],
+          "max": 1000,
+          "min": 1,
           "thresholds": {
-            "mode": "percentage",
+            "mode": "absolute",
             "steps": [
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           },
-          "unit": "num"
+          "unit": "string"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 15,
+        "h": 5,
         "w": 24,
         "x": 0,
         "y": 0
       },
-      "hideEmpty": false,
-      "hideZero": false,
-      "id": 4,
-      "initialZoom": 1,
-      "locationData": "geohash",
-      "mapCenter": "(0°, 0°)",
-      "mapCenterLatitude": 0,
-      "mapCenterLongitude": 0,
-      "maxDataPoints": 1,
-      "mouseWheelZoom": false,
-      "pluginVersion": "7.2.1",
-      "showLegend": true,
-      "stickyLabels": false,
-      "tableQueryOptions": {
-        "geohashField": "geohash",
-        "latitudeField": "latitude",
-        "longitudeField": "longitude",
-        "metricField": "metric",
-        "queryType": "geohash"
+      "id": 3,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "/^Count$/",
+          "values": false
+        },
+        "textMode": "auto"
       },
+      "pluginVersion": "7.2.1",
       "targets": [
         {
           "alias": "",
           "bucketAggs": [
             {
+              "$$hashKey": "object:12499",
               "fake": true,
-              "field": "geoip.location",
+              "field": "@timestamp",
               "id": "3",
               "settings": {
-                "precision": 3
+                "interval": "auto",
+                "min_doc_count": "0",
+                "trimEdges": 0
               },
-              "type": "geohash_grid"
+              "type": "date_histogram"
             }
           ],
           "hide": false,
           "metrics": [
             {
+              "$$hashKey": "object:12497",
               "field": "even",
               "id": "1",
               "meta": {},
@@ -106,28 +132,22 @@
               "type": "count"
             }
           ],
-          "query": "event_type:alert",
+          "query": "logstash-snmp-* AND event_type:snmp",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
-      "thresholds": "0,2",
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-Alert-GeoMap",
-      "transparent": true,
-      "type": "grafana-worldmap-panel",
-      "unitPlural": "",
-      "unitSingle": "",
-      "unitSingular": "",
-      "valueName": "total"
+      "title": "SN-SNMP-TotalCount",
+      "type": "stat"
     },
     {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "$Elasticsearch",
+      "datasource": "$elasticsearch",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -152,13 +172,13 @@
         },
         "overrides": []
       },
-      "fill": 10,
+      "fill": 0,
       "fillGradient": 0,
       "gridPos": {
-        "h": 9,
-        "w": 18,
+        "h": 10,
+        "w": 24,
         "x": 0,
-        "y": 15
+        "y": 5
       },
       "hiddenSeries": false,
       "id": 2,
@@ -196,49 +216,11 @@
           "bucketAggs": [
             {
               "fake": true,
-              "id": "6",
-              "query": "*",
-              "settings": {
-                "filters": [
-                  {
-                    "label": "SSH-Alert",
-                    "query": "_exists_:ssh"
-                  },
-                  {
-                    "label": "SMTP-Alert",
-                    "query": "_exists_:smtp"
-                  },
-                  {
-                    "label": "HTTP-Alert",
-                    "query": "_exists_:http"
-                  },
-                  {
-                    "label": "TLS-Alert",
-                    "query": "_exists_:tls"
-                  },
-                  {
-                    "label": "SMB-Alert",
-                    "query": "_exists_:smb"
-                  },
-                  {
-                    "label": "DNS-Alert",
-                    "query": "_exists_:dns"
-                  },
-                  {
-                    "label": "Other-Alert",
-                    "query": "-_exists_:ssh -_exists_:smtp -_exists_:http -_exists_:tls -_exists_:dns -_exists_:smb"
-                  }
-                ]
-              },
-              "type": "filters"
-            },
-            {
-              "fake": true,
               "field": "@timestamp",
               "id": "3",
               "settings": {
-                "interval": "auto",
-                "min_doc_count": 0,
+                "interval": "30m",
+                "min_doc_count": "1",
                 "trimEdges": 0
               },
               "type": "date_histogram"
@@ -254,7 +236,7 @@
               "type": "count"
             }
           ],
-          "query": "event_type:alert",
+          "query": "logstash-snmp-* AND event_type:snmp",
           "refId": "A",
           "timeField": "@timestamp"
         }
@@ -271,7 +253,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "SN-Alert-ByExtraInfoType",
+      "title": "SN-SNMP-EventsOverTime",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -309,11 +291,12 @@
       }
     },
     {
-      "datasource": "$Elasticsearch",
+      "cacheTimeout": null,
+      "datasource": "$elasticsearch",
       "fieldConfig": {
         "defaults": {
           "custom": {
-            "align": "left",
+            "align": null,
             "filterable": false
           },
           "mappings": [],
@@ -332,499 +315,18 @@
       },
       "gridPos": {
         "h": 9,
-        "w": 6,
-        "x": 18,
+        "w": 12,
+        "x": 0,
         "y": 15
       },
-      "id": 3,
+      "id": 30,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 3,
       "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "sum"
-          ],
-          "fields": "/^Count$/",
-          "values": false
-        },
-        "textMode": "auto"
+        "showHeader": true
       },
       "pluginVersion": "7.2.1",
-      "targets": [
-        {
-          "alias": "",
-          "bucketAggs": [
-            {
-              "fake": true,
-              "field": "@timestamp",
-              "id": "3",
-              "settings": {
-                "interval": "auto",
-                "min_doc_count": 0,
-                "trimEdges": 0
-              },
-              "type": "date_histogram"
-            }
-          ],
-          "hide": false,
-          "metrics": [
-            {
-              "field": "even",
-              "id": "1",
-              "meta": {},
-              "settings": {},
-              "type": "count"
-            }
-          ],
-          "query": "event_type:alert",
-          "refId": "A",
-          "timeField": "@timestamp"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "SN-Alert-Count",
-      "type": "stat"
-    },
-    {
-      "aliasColors": {},
-      "breakPoint": "50%",
-      "cacheTimeout": null,
-      "combine": {
-        "label": "Vlan",
-        "threshold": 0
-      },
-      "datasource": "$Elasticsearch",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "left",
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "string"
-        },
-        "overrides": []
-      },
-      "fontSize": "80%",
-      "format": "short",
-      "gridPos": {
-        "h": 9,
-        "w": 6,
-        "x": 0,
-        "y": 24
-      },
-      "id": 5,
-      "interval": null,
-      "legend": {
-        "percentage": false,
-        "show": true,
-        "values": false
-      },
-      "legendType": "Right side",
-      "links": [],
-      "maxDataPoints": 3,
-      "nullPointMode": "connected",
-      "pieType": "pie",
-      "pluginVersion": "7.2.1",
-      "strokeWidth": 1,
-      "targets": [
-        {
-          "alias": "",
-          "bucketAggs": [
-            {
-              "fake": true,
-              "field": "vlan",
-              "id": "4",
-              "settings": {
-                "min_doc_count": "1",
-                "order": "asc",
-                "orderBy": "_count",
-                "size": "20"
-              },
-              "type": "terms"
-            },
-            {
-              "fake": true,
-              "field": "@timestamp",
-              "id": "3",
-              "settings": {
-                "interval": "auto",
-                "min_doc_count": 0,
-                "trimEdges": 0
-              },
-              "type": "date_histogram"
-            }
-          ],
-          "hide": false,
-          "metrics": [
-            {
-              "field": "even",
-              "id": "1",
-              "meta": {},
-              "settings": {},
-              "type": "count"
-            }
-          ],
-          "query": "event_type: alert AND vlan:*",
-          "refId": "A",
-          "timeField": "@timestamp"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "SN-Alert-ByVLANIDTop20",
-      "type": "grafana-piechart-panel",
-      "valueName": "total"
-    },
-    {
-      "datasource": "$Elasticsearch",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "left",
-            "displayMode": "color-text",
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "alert.signature.keyword"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 493
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 8,
-        "x": 6,
-        "y": 24
-      },
-      "id": 6,
-      "options": {
-        "showHeader": true,
-        "sortBy": []
-      },
-      "pluginVersion": "7.2.1",
-      "targets": [
-        {
-          "alias": "",
-          "bucketAggs": [
-            {
-              "fake": true,
-              "field": "alert.signature.keyword",
-              "id": "7",
-              "settings": {
-                "min_doc_count": "1",
-                "order": "desc",
-                "orderBy": "_count",
-                "size": "100"
-              },
-              "type": "terms"
-            }
-          ],
-          "hide": false,
-          "metrics": [
-            {
-              "field": "even",
-              "id": "1",
-              "meta": {},
-              "settings": {},
-              "type": "count"
-            }
-          ],
-          "query": "*",
-          "refId": "A",
-          "timeField": "@timestamp"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "SN-Alert-Top100Signatures",
-      "type": "table"
-    },
-    {
-      "aliasColors": {},
-      "breakPoint": "50%",
-      "cacheTimeout": null,
-      "combine": {
-        "label": "",
-        "threshold": 0
-      },
-      "datasource": "$Elasticsearch",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "left",
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "string"
-        },
-        "overrides": []
-      },
-      "fontSize": "80%",
-      "format": "short",
-      "gridPos": {
-        "h": 9,
-        "w": 5,
-        "x": 14,
-        "y": 24
-      },
-      "id": 7,
-      "interval": null,
-      "legend": {
-        "percentage": false,
-        "show": true,
-        "values": false
-      },
-      "legendType": "Right side",
-      "links": [],
-      "maxDataPoints": 3,
-      "nullPointMode": "connected",
-      "pieType": "pie",
-      "pluginVersion": "7.2.1",
-      "strokeWidth": 1,
-      "targets": [
-        {
-          "alias": "",
-          "bucketAggs": [
-            {
-              "fake": true,
-              "field": "http.http_method.keyword",
-              "id": "4",
-              "settings": {
-                "min_doc_count": "1",
-                "order": "desc",
-                "orderBy": "_count",
-                "size": "20"
-              },
-              "type": "terms"
-            },
-            {
-              "fake": true,
-              "field": "@timestamp",
-              "id": "3",
-              "settings": {
-                "interval": "auto",
-                "min_doc_count": 0,
-                "trimEdges": 0
-              },
-              "type": "date_histogram"
-            }
-          ],
-          "hide": false,
-          "metrics": [
-            {
-              "field": "even",
-              "id": "1",
-              "meta": {},
-              "settings": {},
-              "type": "count"
-            }
-          ],
-          "query": "http.http_method:* AND event_type: alert",
-          "refId": "A",
-          "timeField": "@timestamp"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "SN-Alert-ByHttpMethod",
-      "type": "grafana-piechart-panel",
-      "valueName": "total"
-    },
-    {
-      "aliasColors": {},
-      "breakPoint": "50%",
-      "cacheTimeout": null,
-      "combine": {
-        "label": "",
-        "threshold": 0
-      },
-      "datasource": "$Elasticsearch",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "left",
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "string"
-        },
-        "overrides": []
-      },
-      "fontSize": "80%",
-      "format": "short",
-      "gridPos": {
-        "h": 9,
-        "w": 5,
-        "x": 19,
-        "y": 24
-      },
-      "id": 8,
-      "interval": null,
-      "legend": {
-        "percentage": false,
-        "show": true,
-        "values": false
-      },
-      "legendType": "Right side",
-      "links": [],
-      "maxDataPoints": 3,
-      "nullPointMode": "connected",
-      "pieType": "pie",
-      "pluginVersion": "7.2.1",
-      "strokeWidth": 1,
-      "targets": [
-        {
-          "alias": "",
-          "bucketAggs": [
-            {
-              "fake": true,
-              "field": "proto.keyword",
-              "id": "4",
-              "settings": {
-                "min_doc_count": "1",
-                "order": "desc",
-                "orderBy": "_count",
-                "size": "20"
-              },
-              "type": "terms"
-            },
-            {
-              "fake": true,
-              "field": "@timestamp",
-              "id": "3",
-              "settings": {
-                "interval": "auto",
-                "min_doc_count": 0,
-                "trimEdges": 0
-              },
-              "type": "date_histogram"
-            }
-          ],
-          "hide": false,
-          "metrics": [
-            {
-              "field": "even",
-              "id": "1",
-              "meta": {},
-              "settings": {},
-              "type": "count"
-            }
-          ],
-          "query": "event_type: alert",
-          "refId": "A",
-          "timeField": "@timestamp"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "SN-Alert-Proto",
-      "type": "grafana-piechart-panel",
-      "valueName": "total"
-    },
-    {
-      "aliasColors": {},
-      "breakPoint": "50%",
-      "cacheTimeout": null,
-      "combine": {
-        "label": "Vlan",
-        "threshold": 0
-      },
-      "datasource": "$Elasticsearch",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "left",
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "string"
-        },
-        "overrides": []
-      },
-      "fontSize": "80%",
-      "format": "short",
-      "gridPos": {
-        "h": 9,
-        "w": 6,
-        "x": 0,
-        "y": 33
-      },
-      "id": 9,
-      "interval": null,
-      "legend": {
-        "percentage": false,
-        "show": true,
-        "values": false
-      },
-      "legendType": "Right side",
-      "links": [],
-      "maxDataPoints": 3,
-      "nullPointMode": "connected",
-      "pieType": "pie",
-      "pluginVersion": "7.2.1",
-      "strokeWidth": 1,
       "targets": [
         {
           "alias": "",
@@ -840,17 +342,6 @@
                 "size": "20"
               },
               "type": "terms"
-            },
-            {
-              "fake": true,
-              "field": "@timestamp",
-              "id": "3",
-              "settings": {
-                "interval": "auto",
-                "min_doc_count": 0,
-                "trimEdges": 0
-              },
-              "type": "date_histogram"
             }
           ],
           "hide": false,
@@ -863,30 +354,23 @@
               "type": "count"
             }
           ],
-          "query": "event_type: alert",
+          "query": "logstash-snmp-* AND event_type:snmp",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-Alert-Top20SrcIP",
-      "type": "grafana-piechart-panel",
-      "valueName": "total"
+      "title": "SN-SNMP-Top100-SrcIP",
+      "type": "table"
     },
     {
-      "aliasColors": {},
-      "breakPoint": "50%",
       "cacheTimeout": null,
-      "combine": {
-        "label": "Vlan",
-        "threshold": 0
-      },
-      "datasource": "$Elasticsearch",
+      "datasource": "$elasticsearch",
       "fieldConfig": {
         "defaults": {
           "custom": {
-            "align": "left",
+            "align": null,
             "filterable": false
           },
           "mappings": [],
@@ -903,28 +387,94 @@
         },
         "overrides": []
       },
-      "fontSize": "80%",
-      "format": "short",
       "gridPos": {
         "h": 9,
-        "w": 6,
-        "x": 6,
-        "y": 33
+        "w": 12,
+        "x": 12,
+        "y": 15
       },
-      "id": 10,
+      "id": 44,
       "interval": null,
-      "legend": {
-        "percentage": false,
-        "show": true,
-        "values": false
-      },
-      "legendType": "Right side",
       "links": [],
       "maxDataPoints": 3,
-      "nullPointMode": "connected",
-      "pieType": "pie",
+      "options": {
+        "showHeader": true
+      },
       "pluginVersion": "7.2.1",
-      "strokeWidth": 1,
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "fake": true,
+              "field": "dest_ip.keyword",
+              "id": "4",
+              "settings": {
+                "min_doc_count": "1",
+                "order": "desc",
+                "orderBy": "_count",
+                "size": "20"
+              },
+              "type": "terms"
+            }
+          ],
+          "hide": false,
+          "metrics": [
+            {
+              "field": "even",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "count"
+            }
+          ],
+          "query": "logstash-snmp-* AND event_type:snmp",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "SN-SNMP-Top100-DestIP",
+      "type": "table"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "$elasticsearch",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "string"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 0,
+        "y": 24
+      },
+      "id": 45,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 3,
+      "options": {
+        "showHeader": true
+      },
+      "pluginVersion": "7.2.1",
       "targets": [
         {
           "alias": "",
@@ -940,17 +490,6 @@
                 "size": "20"
               },
               "type": "terms"
-            },
-            {
-              "fake": true,
-              "field": "@timestamp",
-              "id": "3",
-              "settings": {
-                "interval": "auto",
-                "min_doc_count": 0,
-                "trimEdges": 0
-              },
-              "type": "date_histogram"
             }
           ],
           "hide": false,
@@ -963,26 +502,25 @@
               "type": "count"
             }
           ],
-          "query": "event_type: alert",
+          "query": "logstash-snmp-* AND event_type:snmp",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-Alert-Top20SrcPorts",
-      "type": "grafana-piechart-panel",
-      "valueName": "total"
+      "title": "SN-SNMP-Top100-SrcPort",
+      "type": "table"
     },
     {
       "aliasColors": {},
       "breakPoint": "50%",
       "cacheTimeout": null,
       "combine": {
-        "label": "Vlan",
+        "label": "",
         "threshold": 0
       },
-      "datasource": "$Elasticsearch",
+      "datasource": "$elasticsearch",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -1007,15 +545,16 @@
       "format": "short",
       "gridPos": {
         "h": 9,
-        "w": 6,
-        "x": 12,
-        "y": 33
+        "w": 8,
+        "x": 8,
+        "y": 24
       },
-      "id": 11,
+      "id": 5,
       "interval": null,
       "legend": {
         "percentage": false,
         "show": true,
+        "sideWidth": 150,
         "values": false
       },
       "legendType": "Right side",
@@ -1024,24 +563,26 @@
       "nullPointMode": "connected",
       "pieType": "pie",
       "pluginVersion": "7.2.1",
-      "strokeWidth": 1,
+      "strokeWidth": "1",
       "targets": [
         {
           "alias": "",
           "bucketAggs": [
             {
+              "$$hashKey": "object:12527",
               "fake": true,
-              "field": "dest_ip.keyword",
+              "field": "snmp.version",
               "id": "4",
               "settings": {
                 "min_doc_count": "1",
                 "order": "desc",
                 "orderBy": "_count",
-                "size": "20"
+                "size": "100"
               },
               "type": "terms"
             },
             {
+              "$$hashKey": "object:12528",
               "fake": true,
               "field": "@timestamp",
               "id": "3",
@@ -1056,6 +597,7 @@
           "hide": false,
           "metrics": [
             {
+              "$$hashKey": "object:12525",
               "field": "even",
               "id": "1",
               "meta": {},
@@ -1063,30 +605,24 @@
               "type": "count"
             }
           ],
-          "query": "event_type: alert",
+          "query": "logstash-snmp-* AND event_type:snmp",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-Alert-Top20DstIP",
+      "title": "SN-SNMP-Version",
       "type": "grafana-piechart-panel",
       "valueName": "total"
     },
     {
-      "aliasColors": {},
-      "breakPoint": "50%",
       "cacheTimeout": null,
-      "combine": {
-        "label": "Vlan",
-        "threshold": 0
-      },
-      "datasource": "$Elasticsearch",
+      "datasource": "$elasticsearch",
       "fieldConfig": {
         "defaults": {
           "custom": {
-            "align": "left",
+            "align": null,
             "filterable": false
           },
           "mappings": [],
@@ -1103,28 +639,20 @@
         },
         "overrides": []
       },
-      "fontSize": "80%",
-      "format": "short",
       "gridPos": {
         "h": 9,
-        "w": 6,
-        "x": 18,
-        "y": 33
+        "w": 8,
+        "x": 16,
+        "y": 24
       },
-      "id": 12,
+      "id": 46,
       "interval": null,
-      "legend": {
-        "percentage": false,
-        "show": true,
-        "values": false
-      },
-      "legendType": "Right side",
       "links": [],
       "maxDataPoints": 3,
-      "nullPointMode": "connected",
-      "pieType": "pie",
+      "options": {
+        "showHeader": true
+      },
       "pluginVersion": "7.2.1",
-      "strokeWidth": 1,
       "targets": [
         {
           "alias": "",
@@ -1140,17 +668,6 @@
                 "size": "20"
               },
               "type": "terms"
-            },
-            {
-              "fake": true,
-              "field": "@timestamp",
-              "id": "3",
-              "settings": {
-                "interval": "auto",
-                "min_doc_count": 0,
-                "trimEdges": 0
-              },
-              "type": "date_histogram"
             }
           ],
           "hide": false,
@@ -1163,30 +680,23 @@
               "type": "count"
             }
           ],
-          "query": "event_type: alert",
+          "query": "logstash-snmp-* AND event_type:snmp",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-Alert-Top20DstPorts",
-      "type": "grafana-piechart-panel",
-      "valueName": "total"
+      "title": "SN-SNMP-Top100-DestPort",
+      "type": "table"
     },
     {
-      "aliasColors": {},
-      "breakPoint": "50%",
       "cacheTimeout": null,
-      "combine": {
-        "label": "Vlan",
-        "threshold": 0
-      },
-      "datasource": "$Elasticsearch",
+      "datasource": "$elasticsearch",
       "fieldConfig": {
         "defaults": {
           "custom": {
-            "align": "left",
+            "align": null,
             "filterable": false
           },
           "mappings": [],
@@ -1203,35 +713,27 @@
         },
         "overrides": []
       },
-      "fontSize": "80%",
-      "format": "short",
       "gridPos": {
-        "h": 12,
+        "h": 9,
         "w": 8,
         "x": 0,
-        "y": 42
+        "y": 33
       },
-      "id": 13,
+      "id": 47,
       "interval": null,
-      "legend": {
-        "percentage": false,
-        "show": true,
-        "values": false
-      },
-      "legendType": "Right side",
       "links": [],
       "maxDataPoints": 3,
-      "nullPointMode": "connected",
-      "pieType": "pie",
+      "options": {
+        "showHeader": true
+      },
       "pluginVersion": "7.2.1",
-      "strokeWidth": 1,
       "targets": [
         {
           "alias": "",
           "bucketAggs": [
             {
               "fake": true,
-              "field": "tls.issuerdn.keyword",
+              "field": "snmp.usm.keyword",
               "id": "4",
               "settings": {
                 "min_doc_count": "1",
@@ -1240,17 +742,6 @@
                 "size": "20"
               },
               "type": "terms"
-            },
-            {
-              "fake": true,
-              "field": "@timestamp",
-              "id": "3",
-              "settings": {
-                "interval": "auto",
-                "min_doc_count": 0,
-                "trimEdges": 0
-              },
-              "type": "date_histogram"
             }
           ],
           "hide": false,
@@ -1263,30 +754,23 @@
               "type": "count"
             }
           ],
-          "query": "event_type: alert",
+          "query": "logstash-snmp-* AND event_type:snmp",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-Alert-ByTlsIssuerdn",
-      "type": "grafana-piechart-panel",
-      "valueName": "total"
+      "title": "SN-SNMP-Usm",
+      "type": "table"
     },
     {
-      "aliasColors": {},
-      "breakPoint": "50%",
       "cacheTimeout": null,
-      "combine": {
-        "label": "Vlan",
-        "threshold": 0
-      },
-      "datasource": "$Elasticsearch",
+      "datasource": "$elasticsearch",
       "fieldConfig": {
         "defaults": {
           "custom": {
-            "align": "left",
+            "align": null,
             "filterable": false
           },
           "mappings": [],
@@ -1303,35 +787,27 @@
         },
         "overrides": []
       },
-      "fontSize": "80%",
-      "format": "short",
       "gridPos": {
-        "h": 12,
+        "h": 9,
         "w": 8,
         "x": 8,
-        "y": 42
+        "y": 33
       },
-      "id": 14,
+      "id": 48,
       "interval": null,
-      "legend": {
-        "percentage": false,
-        "show": true,
-        "values": false
-      },
-      "legendType": "Right side",
       "links": [],
       "maxDataPoints": 3,
-      "nullPointMode": "connected",
-      "pieType": "pie",
+      "options": {
+        "showHeader": true
+      },
       "pluginVersion": "7.2.1",
-      "strokeWidth": 1,
       "targets": [
         {
           "alias": "",
           "bucketAggs": [
             {
               "fake": true,
-              "field": "smtp.helo.keyword",
+              "field": "snmp.community.keyword",
               "id": "4",
               "settings": {
                 "min_doc_count": "1",
@@ -1340,17 +816,6 @@
                 "size": "20"
               },
               "type": "terms"
-            },
-            {
-              "fake": true,
-              "field": "@timestamp",
-              "id": "3",
-              "settings": {
-                "interval": "auto",
-                "min_doc_count": 0,
-                "trimEdges": 0
-              },
-              "type": "date_histogram"
             }
           ],
           "hide": false,
@@ -1363,26 +828,25 @@
               "type": "count"
             }
           ],
-          "query": "event_type: alert",
+          "query": "logstash-snmp-* AND event_type:snmp",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-Alert-BySmtpHello",
-      "type": "grafana-piechart-panel",
-      "valueName": "total"
+      "title": "SN-SNMP-Community",
+      "type": "table"
     },
     {
       "aliasColors": {},
       "breakPoint": "50%",
       "cacheTimeout": null,
       "combine": {
-        "label": "Vlan",
+        "label": "",
         "threshold": 0
       },
-      "datasource": "$Elasticsearch",
+      "datasource": "$elasticsearch",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -1406,16 +870,17 @@
       "fontSize": "80%",
       "format": "short",
       "gridPos": {
-        "h": 12,
+        "h": 9,
         "w": 8,
         "x": 16,
-        "y": 42
+        "y": 33
       },
-      "id": 15,
+      "id": 49,
       "interval": null,
       "legend": {
         "percentage": false,
         "show": true,
+        "sideWidth": 150,
         "values": false
       },
       "legendType": "Right side",
@@ -1424,20 +889,20 @@
       "nullPointMode": "connected",
       "pieType": "pie",
       "pluginVersion": "7.2.1",
-      "strokeWidth": 1,
+      "strokeWidth": "1",
       "targets": [
         {
           "alias": "",
           "bucketAggs": [
             {
               "fake": true,
-              "field": "tls.sni.keyword",
+              "field": "vlan",
               "id": "4",
               "settings": {
                 "min_doc_count": "1",
                 "order": "desc",
                 "orderBy": "_count",
-                "size": "20"
+                "size": "100"
               },
               "type": "terms"
             },
@@ -1463,25 +928,24 @@
               "type": "count"
             }
           ],
-          "query": "event_type: alert",
+          "query": "logstash-snmp-* AND event_type:snmp",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-Alert-ByTlsSni",
+      "title": "SN-SNMP-ByVlan",
       "type": "grafana-piechart-panel",
       "valueName": "total"
     },
     {
-      "datasource": "$Elasticsearch",
-      "description": "",
+      "cacheTimeout": null,
+      "datasource": "$elasticsearch",
       "fieldConfig": {
         "defaults": {
           "custom": {
-            "align": "left",
-            "displayMode": "color-text",
+            "align": null,
             "filterable": false
           },
           "mappings": [],
@@ -1494,33 +958,22 @@
               }
             ]
           },
-          "unit": "none"
+          "unit": "string"
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "alert.signature.keyword"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 493
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
-        "h": 18,
+        "h": 11,
         "w": 12,
         "x": 0,
-        "y": 54
+        "y": 42
       },
-      "id": 16,
+      "id": 50,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 3,
       "options": {
-        "showHeader": true,
-        "sortBy": []
+        "showHeader": true
       },
       "pluginVersion": "7.2.1",
       "targets": [
@@ -1529,13 +982,13 @@
           "bucketAggs": [
             {
               "fake": true,
-              "field": "alert.signature.keyword",
-              "id": "7",
+              "field": "snmp.vars.keyword",
+              "id": "4",
               "settings": {
                 "min_doc_count": "1",
                 "order": "desc",
                 "orderBy": "_count",
-                "size": "100"
+                "size": "20"
               },
               "type": "terms"
             }
@@ -1550,24 +1003,29 @@
               "type": "count"
             }
           ],
-          "query": "*",
+          "query": "logstash-snmp-* AND event_type:snmp",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-ThreatHunt-ALERTS-Top100Signatures",
+      "title": "SN-SNMP-Vars",
       "type": "table"
     },
     {
-      "datasource": "$Elasticsearch",
-      "description": "",
+      "aliasColors": {},
+      "breakPoint": "50%",
+      "cacheTimeout": null,
+      "combine": {
+        "label": "",
+        "threshold": 0
+      },
+      "datasource": "$elasticsearch",
       "fieldConfig": {
         "defaults": {
           "custom": {
             "align": "left",
-            "displayMode": "color-text",
             "filterable": false
           },
           "mappings": [],
@@ -1577,184 +1035,87 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "orange",
-                "value": 5
-              },
-              {
-                "color": "red",
-                "value": 10
               }
             ]
           },
-          "unit": "none"
+          "unit": "string"
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "alert.signature.keyword"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 493
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
+      "fontSize": "80%",
+      "format": "short",
       "gridPos": {
-        "h": 9,
+        "h": 11,
         "w": 12,
         "x": 12,
-        "y": 54
+        "y": 42
       },
-      "id": 17,
-      "options": {
-        "showHeader": true,
-        "sortBy": []
+      "id": 51,
+      "interval": null,
+      "legend": {
+        "percentage": true,
+        "show": true,
+        "sideWidth": 150,
+        "values": false
       },
+      "legendType": "On graph",
+      "links": [],
+      "maxDataPoints": 3,
+      "nullPointMode": "connected",
+      "pieType": "pie",
       "pluginVersion": "7.2.1",
+      "strokeWidth": "1",
       "targets": [
         {
           "alias": "",
           "bucketAggs": [
             {
               "fake": true,
-              "field": "dest_ip.keyword",
-              "id": "8",
-              "settings": {
-                "min_doc_count": "0",
-                "missing": null,
-                "order": "desc",
-                "orderBy": "1",
-                "size": "100"
-              },
-              "type": "terms"
-            }
-          ],
-          "hide": false,
-          "metrics": [
-            {
-              "field": "alert.signature.keyword",
-              "id": "1",
-              "meta": {},
-              "settings": {
-                "missing": null,
-                "precision_threshold": null
-              },
-              "type": "cardinality"
-            }
-          ],
-          "query": "*",
-          "refId": "A",
-          "timeField": "@timestamp"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "SN-ThreatHunt-ALERTS-MutlipleUniqueAlertOnDestIP",
-      "transformations": [],
-      "type": "table"
-    },
-    {
-      "datasource": "$Elasticsearch",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "left",
-            "displayMode": "color-text",
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "orange",
-                "value": 5
-              },
-              {
-                "color": "red",
-                "value": 10
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "alert.signature.keyword"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 493
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 12,
-        "y": 63
-      },
-      "id": 18,
-      "options": {
-        "showHeader": true,
-        "sortBy": []
-      },
-      "pluginVersion": "7.2.1",
-      "targets": [
-        {
-          "alias": "",
-          "bucketAggs": [
-            {
-              "fake": true,
-              "field": "src_ip.keyword",
-              "id": "7",
+              "field": "snmp.pdu_type.keyword",
+              "id": "4",
               "settings": {
                 "min_doc_count": "1",
                 "order": "desc",
-                "orderBy": "1",
+                "orderBy": "_count",
                 "size": "100"
               },
               "type": "terms"
+            },
+            {
+              "fake": true,
+              "field": "@timestamp",
+              "id": "3",
+              "settings": {
+                "interval": "auto",
+                "min_doc_count": 0,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
             }
           ],
           "hide": false,
           "metrics": [
             {
-              "field": "alert.signature.keyword",
+              "field": "even",
               "id": "1",
               "meta": {},
               "settings": {},
-              "type": "cardinality"
+              "type": "count"
             }
           ],
-          "query": "*",
+          "query": "logstash-snmp-* AND event_type:snmp",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-ThreatHunt-ALERTS-MutlipleUniqueAlertOnSrcIP",
-      "type": "table"
+      "title": "SN-SNMP-Pdu",
+      "type": "grafana-piechart-panel",
+      "valueName": "total"
     },
     {
-      "datasource": "$Elasticsearch",
+      "datasource": "$elasticsearch",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -1763,6 +1124,7 @@
             "filterable": false
           },
           "mappings": [],
+          "noValue": "-",
           "thresholds": {
             "mode": "percentage",
             "steps": [
@@ -1780,7 +1142,7 @@
         "h": 24,
         "w": 24,
         "x": 0,
-        "y": 72
+        "y": 53
       },
       "id": 20,
       "options": {
@@ -1802,7 +1164,7 @@
               "id": "2",
               "settings": {
                 "interval": "auto",
-                "min_doc_count": 0,
+                "min_doc_count": "1",
                 "trimEdges": 0
               },
               "type": "date_histogram"
@@ -1825,14 +1187,14 @@
               "type": "logs"
             }
           ],
-          "query": "event_type:alert",
+          "query": "logstash-snmp-* AND event_type:snmp",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-Alert-ByExtraInfoType",
+      "title": "SN-SNMP-EventsList",
       "transformations": [
         {
           "id": "filterFieldsByName",
@@ -1840,15 +1202,14 @@
             "include": {
               "names": [
                 "@timestamp",
-                "alert.category",
                 "dest_ip",
                 "dest_port",
-                "proto",
                 "src_ip",
                 "src_port",
-                "vlan",
-                "alert.signature",
-                "alert.signature_id"
+                "snmp.community",
+                "snmp.pdu_type",
+                "snmp.vars",
+                "snmp.version"
               ]
             }
           }
@@ -1859,15 +1220,14 @@
             "excludeByName": {},
             "indexByName": {
               "@timestamp": 0,
-              "alert.category": 1,
-              "alert.signature": 7,
-              "alert.signature_id": 8,
-              "dest_ip": 5,
-              "dest_port": 6,
-              "proto": 4,
-              "src_ip": 2,
-              "src_port": 3,
-              "vlan": 9
+              "dest_ip": 4,
+              "dest_port": 5,
+              "proto": 3,
+              "src_ip": 1,
+              "src_port": 2,
+              "ssh.client.software_version": 8,
+              "ssh.server.proto_version": 6,
+              "ssh.server.software_version": 7
             },
             "renameByName": {}
           }
@@ -1892,7 +1252,7 @@
         "includeAll": false,
         "label": null,
         "multi": false,
-        "name": "Elasticsearch",
+        "name": "elasticsearch",
         "options": [],
         "query": "elasticsearch",
         "refresh": 1,
@@ -1908,7 +1268,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "SN-ALERTS",
-  "uid": "hX4fz3cGz",
-  "version": 46
+  "title": "SN-SNMP",
+  "uid": "fU9cU7tGz",
+  "version": 7
 }

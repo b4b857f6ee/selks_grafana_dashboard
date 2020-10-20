@@ -1,4 +1,49 @@
 {
+  "__inputs": [],
+  "__requires": [
+    {
+      "type": "datasource",
+      "id": "elasticsearch",
+      "name": "Elasticsearch",
+      "version": "1.0.0"
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "7.2.1"
+    },
+    {
+      "type": "panel",
+      "id": "grafana-piechart-panel",
+      "name": "Pie Chart",
+      "version": "1.3.9"
+    },
+    {
+      "type": "panel",
+      "id": "grafana-worldmap-panel",
+      "name": "Worldmap Panel",
+      "version": "0.2.1"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -15,8 +60,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 64,
-  "iteration": 1603219669847,
+  "id": null,
+  "iteration": 1603222694772,
   "links": [],
   "panels": [
     {
@@ -70,6 +115,7 @@
           "alias": "",
           "bucketAggs": [
             {
+              "$$hashKey": "object:12995",
               "fake": true,
               "field": "@timestamp",
               "id": "3",
@@ -84,6 +130,7 @@
           "hide": false,
           "metrics": [
             {
+              "$$hashKey": "object:12993",
               "field": "even",
               "id": "1",
               "meta": {},
@@ -91,22 +138,29 @@
               "type": "count"
             }
           ],
-          "query": "logstash-snmp-* AND event_type:snmp",
+          "query": "logstash-tftp-* AND event_type:tftp",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-SNMP-TotalCount",
+      "title": "SN-TFTP-Total",
       "type": "stat"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
+      "circleMaxSize": "10",
+      "circleMinSize": 2,
+      "colors": [
+        "#FADE2A",
+        "#FADE2A",
+        "#F2495C"
+      ],
       "datasource": "$elasticsearch",
+      "decimals": 0,
+      "esGeoPoint": "geoip.location",
+      "esLocationName": "",
+      "esMetric": "Count",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -127,16 +181,113 @@
               }
             ]
           },
+          "unit": "num"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 17,
+        "w": 12,
+        "x": 0,
+        "y": 5
+      },
+      "hideEmpty": false,
+      "hideZero": false,
+      "id": 4,
+      "initialZoom": 1,
+      "locationData": "geohash",
+      "mapCenter": "(0°, 0°)",
+      "mapCenterLatitude": 0,
+      "mapCenterLongitude": 0,
+      "maxDataPoints": 1,
+      "mouseWheelZoom": false,
+      "pluginVersion": "7.2.1",
+      "showLegend": true,
+      "stickyLabels": false,
+      "tableQueryOptions": {
+        "geohashField": "geohash",
+        "latitudeField": "latitude",
+        "longitudeField": "longitude",
+        "metricField": "metric",
+        "queryType": "geohash"
+      },
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "fake": true,
+              "field": "geoip.location",
+              "id": "3",
+              "settings": {
+                "precision": 3
+              },
+              "type": "geohash_grid"
+            }
+          ],
+          "hide": false,
+          "metrics": [
+            {
+              "field": "even",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "count"
+            }
+          ],
+          "query": "logstash-tftp-* AND event_type:tftp",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "thresholds": "0,2",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "SN-TFTP-GeoIP",
+      "transparent": true,
+      "type": "grafana-worldmap-panel",
+      "unitPlural": "",
+      "unitSingle": "",
+      "unitSingular": "",
+      "valueName": "total"
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "$elasticsearch",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "left",
+            "filterable": false
+          },
+          "displayName": "TFTP",
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
           "unit": "none"
         },
         "overrides": []
       },
-      "fill": 0,
+      "fill": 10,
       "fillGradient": 0,
       "gridPos": {
-        "h": 10,
-        "w": 24,
-        "x": 0,
+        "h": 17,
+        "w": 12,
+        "x": 12,
         "y": 5
       },
       "hiddenSeries": false,
@@ -154,7 +305,7 @@
         "total": false,
         "values": false
       },
-      "lines": true,
+      "lines": false,
       "linewidth": 2,
       "nullPointMode": "null",
       "options": {
@@ -167,7 +318,7 @@
       "renderer": "flot",
       "seriesOverrides": [],
       "spaceLength": 10,
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [
         {
@@ -195,7 +346,7 @@
               "type": "count"
             }
           ],
-          "query": "logstash-snmp-* AND event_type:snmp",
+          "query": "logstash-tftp-* AND event_type:tftp",
           "refId": "A",
           "timeField": "@timestamp"
         }
@@ -212,7 +363,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "SN-SNMP-EventsOverTime",
+      "title": "SN-TFTP-EventsOverTime",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -250,12 +401,13 @@
       }
     },
     {
-      "cacheTimeout": null,
       "datasource": "$elasticsearch",
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "custom": {
-            "align": null,
+            "align": "left",
+            "displayMode": "color-text",
             "filterable": false
           },
           "mappings": [],
@@ -268,22 +420,33 @@
               }
             ]
           },
-          "unit": "string"
+          "unit": "none"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "alert.signature.keyword"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 493
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
-        "h": 9,
-        "w": 12,
+        "h": 11,
+        "w": 7,
         "x": 0,
-        "y": 15
+        "y": 22
       },
-      "id": 30,
-      "interval": null,
-      "links": [],
-      "maxDataPoints": 3,
+      "id": 17,
       "options": {
-        "showHeader": true
+        "showHeader": true,
+        "sortBy": []
       },
       "pluginVersion": "7.2.1",
       "targets": [
@@ -293,12 +456,12 @@
             {
               "fake": true,
               "field": "src_ip.keyword",
-              "id": "4",
+              "id": "9",
               "settings": {
                 "min_doc_count": "1",
                 "order": "desc",
-                "orderBy": "_count",
-                "size": "20"
+                "orderBy": "_term",
+                "size": "100"
               },
               "type": "terms"
             }
@@ -306,104 +469,46 @@
           "hide": false,
           "metrics": [
             {
-              "field": "even",
+              "field": "alert.signature.keyword",
               "id": "1",
               "meta": {},
               "settings": {},
               "type": "count"
             }
           ],
-          "query": "logstash-snmp-* AND event_type:snmp",
+          "query": "logstash-tftp-* AND event_type:tftp",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-SNMP-Top100-SrcIP",
-      "type": "table"
-    },
-    {
-      "cacheTimeout": null,
-      "datasource": "$elasticsearch",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": null,
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "string"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 12,
-        "y": 15
-      },
-      "id": 44,
-      "interval": null,
-      "links": [],
-      "maxDataPoints": 3,
-      "options": {
-        "showHeader": true
-      },
-      "pluginVersion": "7.2.1",
-      "targets": [
+      "title": "SN-TFTP-Top20SrcIP",
+      "transformations": [
         {
-          "alias": "",
-          "bucketAggs": [
-            {
-              "fake": true,
-              "field": "dest_ip.keyword",
-              "id": "4",
-              "settings": {
-                "min_doc_count": "1",
-                "order": "desc",
-                "orderBy": "_count",
-                "size": "20"
-              },
-              "type": "terms"
-            }
-          ],
-          "hide": false,
-          "metrics": [
-            {
-              "field": "even",
-              "id": "1",
-              "meta": {},
-              "settings": {},
-              "type": "count"
-            }
-          ],
-          "query": "logstash-snmp-* AND event_type:snmp",
-          "refId": "A",
-          "timeField": "@timestamp"
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {
+              "Count": 3,
+              "http.hostname.keyword": 1,
+              "http.length": 0,
+              "src_ip.keyword": 2
+            },
+            "renameByName": {}
+          }
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "SN-SNMP-Top100-DestIP",
       "type": "table"
     },
     {
-      "cacheTimeout": null,
       "datasource": "$elasticsearch",
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "custom": {
-            "align": null,
+            "align": "left",
+            "displayMode": "color-text",
             "filterable": false
           },
           "mappings": [],
@@ -416,22 +521,33 @@
               }
             ]
           },
-          "unit": "string"
+          "unit": "none"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "alert.signature.keyword"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 493
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
-        "h": 9,
-        "w": 8,
-        "x": 0,
-        "y": 24
+        "h": 11,
+        "w": 5,
+        "x": 7,
+        "y": 22
       },
-      "id": 45,
-      "interval": null,
-      "links": [],
-      "maxDataPoints": 3,
+      "id": 41,
       "options": {
-        "showHeader": true
+        "showHeader": true,
+        "sortBy": []
       },
       "pluginVersion": "7.2.1",
       "targets": [
@@ -441,12 +557,12 @@
             {
               "fake": true,
               "field": "src_port",
-              "id": "4",
+              "id": "9",
               "settings": {
                 "min_doc_count": "1",
                 "order": "desc",
-                "orderBy": "_count",
-                "size": "20"
+                "orderBy": "_term",
+                "size": "100"
               },
               "type": "terms"
             }
@@ -454,21 +570,232 @@
           "hide": false,
           "metrics": [
             {
-              "field": "even",
+              "field": "alert.signature.keyword",
               "id": "1",
               "meta": {},
               "settings": {},
               "type": "count"
             }
           ],
-          "query": "logstash-snmp-* AND event_type:snmp",
+          "query": "logstash-tftp-* AND event_type:tftp",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-SNMP-Top100-SrcPort",
+      "title": "SN-TFTP-Top20SrcPort",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {
+              "Count": 1,
+              "src_port": 0
+            },
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": "$elasticsearch",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "left",
+            "displayMode": "color-text",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "alert.signature.keyword"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 493
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 7,
+        "x": 12,
+        "y": 22
+      },
+      "id": 40,
+      "options": {
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "7.2.1",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "fake": true,
+              "field": "dest_ip.keyword",
+              "id": "9",
+              "settings": {
+                "min_doc_count": "1",
+                "order": "desc",
+                "orderBy": "_term",
+                "size": "100"
+              },
+              "type": "terms"
+            }
+          ],
+          "hide": false,
+          "metrics": [
+            {
+              "field": "alert.signature.keyword",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "count"
+            }
+          ],
+          "query": "logstash-tftp-* AND event_type:tftp",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "SN-TFTP-Top20DestIP",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {
+              "Count": 1,
+              "dest_ip.keyword": 0
+            },
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": "$elasticsearch",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "left",
+            "displayMode": "color-text",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "alert.signature.keyword"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 493
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 5,
+        "x": 19,
+        "y": 22
+      },
+      "id": 42,
+      "options": {
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "7.2.1",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "fake": true,
+              "field": "dest_port",
+              "id": "9",
+              "settings": {
+                "min_doc_count": "1",
+                "order": "desc",
+                "orderBy": "_term",
+                "size": "100"
+              },
+              "type": "terms"
+            }
+          ],
+          "hide": false,
+          "metrics": [
+            {
+              "field": "alert.signature.keyword",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "count"
+            }
+          ],
+          "query": "logstash-tftp-* AND event_type:tftp",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "SN-TFTP-Top20DestPort",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {
+              "Count": 1,
+              "dest_port": 0
+            },
+            "renameByName": {}
+          }
+        }
+      ],
       "type": "table"
     },
     {
@@ -503,10 +830,111 @@
       "fontSize": "80%",
       "format": "short",
       "gridPos": {
-        "h": 9,
+        "h": 13,
+        "w": 8,
+        "x": 0,
+        "y": 33
+      },
+      "id": 43,
+      "interval": null,
+      "legend": {
+        "percentage": false,
+        "show": true,
+        "sideWidth": 150,
+        "values": false
+      },
+      "legendType": "Right side",
+      "links": [],
+      "maxDataPoints": 3,
+      "nullPointMode": "connected",
+      "pieType": "donut",
+      "pluginVersion": "7.2.1",
+      "strokeWidth": "1",
+      "targets": [
+        {
+          "alias": "",
+          "bucketAggs": [
+            {
+              "fake": true,
+              "field": "tftp.mode.keyword",
+              "id": "4",
+              "settings": {
+                "min_doc_count": "1",
+                "order": "desc",
+                "orderBy": "_count",
+                "size": "5"
+              },
+              "type": "terms"
+            },
+            {
+              "fake": true,
+              "field": "@timestamp",
+              "id": "3",
+              "settings": {
+                "interval": "auto",
+                "min_doc_count": 0,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "hide": false,
+          "metrics": [
+            {
+              "field": "even",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "count"
+            }
+          ],
+          "query": "logstash-tftp-* AND event_type:tftp",
+          "refId": "A",
+          "timeField": "@timestamp"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "SN-TFTP-Mode",
+      "type": "grafana-piechart-panel",
+      "valueName": "total"
+    },
+    {
+      "aliasColors": {},
+      "breakPoint": "50%",
+      "cacheTimeout": null,
+      "combine": {
+        "label": "",
+        "threshold": 0
+      },
+      "datasource": "$elasticsearch",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "left",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "string"
+        },
+        "overrides": []
+      },
+      "fontSize": "80%",
+      "format": "short",
+      "gridPos": {
+        "h": 13,
         "w": 8,
         "x": 8,
-        "y": 24
+        "y": 33
       },
       "id": 5,
       "interval": null,
@@ -520,7 +948,7 @@
       "links": [],
       "maxDataPoints": 3,
       "nullPointMode": "connected",
-      "pieType": "pie",
+      "pieType": "donut",
       "pluginVersion": "7.2.1",
       "strokeWidth": "1",
       "targets": [
@@ -529,13 +957,13 @@
           "bucketAggs": [
             {
               "fake": true,
-              "field": "snmp.version",
+              "field": "tftp.file.keyword",
               "id": "4",
               "settings": {
                 "min_doc_count": "1",
                 "order": "desc",
                 "orderBy": "_count",
-                "size": "100"
+                "size": "5"
               },
               "type": "terms"
             },
@@ -561,238 +989,16 @@
               "type": "count"
             }
           ],
-          "query": "logstash-snmp-* AND event_type:snmp",
+          "query": "logstash-tftp-* AND event_type:tftp",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-SNMP-Version",
+      "title": "SN-TFTP-File",
       "type": "grafana-piechart-panel",
       "valueName": "total"
-    },
-    {
-      "cacheTimeout": null,
-      "datasource": "$elasticsearch",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": null,
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "string"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 8,
-        "x": 16,
-        "y": 24
-      },
-      "id": 46,
-      "interval": null,
-      "links": [],
-      "maxDataPoints": 3,
-      "options": {
-        "showHeader": true
-      },
-      "pluginVersion": "7.2.1",
-      "targets": [
-        {
-          "alias": "",
-          "bucketAggs": [
-            {
-              "fake": true,
-              "field": "dest_port",
-              "id": "4",
-              "settings": {
-                "min_doc_count": "1",
-                "order": "desc",
-                "orderBy": "_count",
-                "size": "20"
-              },
-              "type": "terms"
-            }
-          ],
-          "hide": false,
-          "metrics": [
-            {
-              "field": "even",
-              "id": "1",
-              "meta": {},
-              "settings": {},
-              "type": "count"
-            }
-          ],
-          "query": "logstash-snmp-* AND event_type:snmp",
-          "refId": "A",
-          "timeField": "@timestamp"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "SN-SNMP-Top100-DestPort",
-      "type": "table"
-    },
-    {
-      "cacheTimeout": null,
-      "datasource": "$elasticsearch",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": null,
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "string"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 8,
-        "x": 0,
-        "y": 33
-      },
-      "id": 47,
-      "interval": null,
-      "links": [],
-      "maxDataPoints": 3,
-      "options": {
-        "showHeader": true
-      },
-      "pluginVersion": "7.2.1",
-      "targets": [
-        {
-          "alias": "",
-          "bucketAggs": [
-            {
-              "fake": true,
-              "field": "snmp.usm.keyword",
-              "id": "4",
-              "settings": {
-                "min_doc_count": "1",
-                "order": "desc",
-                "orderBy": "_count",
-                "size": "20"
-              },
-              "type": "terms"
-            }
-          ],
-          "hide": false,
-          "metrics": [
-            {
-              "field": "even",
-              "id": "1",
-              "meta": {},
-              "settings": {},
-              "type": "count"
-            }
-          ],
-          "query": "logstash-snmp-* AND event_type:snmp",
-          "refId": "A",
-          "timeField": "@timestamp"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "SN-SNMP-Usm",
-      "type": "table"
-    },
-    {
-      "cacheTimeout": null,
-      "datasource": "$elasticsearch",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": null,
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "string"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 8,
-        "x": 8,
-        "y": 33
-      },
-      "id": 48,
-      "interval": null,
-      "links": [],
-      "maxDataPoints": 3,
-      "options": {
-        "showHeader": true
-      },
-      "pluginVersion": "7.2.1",
-      "targets": [
-        {
-          "alias": "",
-          "bucketAggs": [
-            {
-              "fake": true,
-              "field": "snmp.community.keyword",
-              "id": "4",
-              "settings": {
-                "min_doc_count": "1",
-                "order": "desc",
-                "orderBy": "_count",
-                "size": "20"
-              },
-              "type": "terms"
-            }
-          ],
-          "hide": false,
-          "metrics": [
-            {
-              "field": "even",
-              "id": "1",
-              "meta": {},
-              "settings": {},
-              "type": "count"
-            }
-          ],
-          "query": "logstash-snmp-* AND event_type:snmp",
-          "refId": "A",
-          "timeField": "@timestamp"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "SN-SNMP-Community",
-      "type": "table"
     },
     {
       "aliasColors": {},
@@ -826,12 +1032,12 @@
       "fontSize": "80%",
       "format": "short",
       "gridPos": {
-        "h": 9,
+        "h": 13,
         "w": 8,
         "x": 16,
         "y": 33
       },
-      "id": 49,
+      "id": 44,
       "interval": null,
       "legend": {
         "percentage": false,
@@ -843,7 +1049,7 @@
       "links": [],
       "maxDataPoints": 3,
       "nullPointMode": "connected",
-      "pieType": "pie",
+      "pieType": "donut",
       "pluginVersion": "7.2.1",
       "strokeWidth": "1",
       "targets": [
@@ -852,13 +1058,13 @@
           "bucketAggs": [
             {
               "fake": true,
-              "field": "vlan",
+              "field": "tftp.packet.keyword",
               "id": "4",
               "settings": {
                 "min_doc_count": "1",
                 "order": "desc",
                 "orderBy": "_count",
-                "size": "100"
+                "size": "5"
               },
               "type": "terms"
             },
@@ -884,189 +1090,14 @@
               "type": "count"
             }
           ],
-          "query": "logstash-snmp-* AND event_type:snmp",
+          "query": "logstash-tftp-* AND event_type:tftp",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-SNMP-ByVlan",
-      "type": "grafana-piechart-panel",
-      "valueName": "total"
-    },
-    {
-      "cacheTimeout": null,
-      "datasource": "$elasticsearch",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": null,
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "string"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 11,
-        "w": 12,
-        "x": 0,
-        "y": 42
-      },
-      "id": 50,
-      "interval": null,
-      "links": [],
-      "maxDataPoints": 3,
-      "options": {
-        "showHeader": true
-      },
-      "pluginVersion": "7.2.1",
-      "targets": [
-        {
-          "alias": "",
-          "bucketAggs": [
-            {
-              "fake": true,
-              "field": "snmp.vars.keyword",
-              "id": "4",
-              "settings": {
-                "min_doc_count": "1",
-                "order": "desc",
-                "orderBy": "_count",
-                "size": "20"
-              },
-              "type": "terms"
-            }
-          ],
-          "hide": false,
-          "metrics": [
-            {
-              "field": "even",
-              "id": "1",
-              "meta": {},
-              "settings": {},
-              "type": "count"
-            }
-          ],
-          "query": "logstash-snmp-* AND event_type:snmp",
-          "refId": "A",
-          "timeField": "@timestamp"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "SN-SNMP-Vars",
-      "type": "table"
-    },
-    {
-      "aliasColors": {},
-      "breakPoint": "50%",
-      "cacheTimeout": null,
-      "combine": {
-        "label": "",
-        "threshold": 0
-      },
-      "datasource": "$elasticsearch",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "left",
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "string"
-        },
-        "overrides": []
-      },
-      "fontSize": "80%",
-      "format": "short",
-      "gridPos": {
-        "h": 11,
-        "w": 12,
-        "x": 12,
-        "y": 42
-      },
-      "id": 51,
-      "interval": null,
-      "legend": {
-        "percentage": true,
-        "show": true,
-        "sideWidth": 150,
-        "values": false
-      },
-      "legendType": "On graph",
-      "links": [],
-      "maxDataPoints": 3,
-      "nullPointMode": "connected",
-      "pieType": "pie",
-      "pluginVersion": "7.2.1",
-      "strokeWidth": "1",
-      "targets": [
-        {
-          "alias": "",
-          "bucketAggs": [
-            {
-              "fake": true,
-              "field": "snmp.pdu_type.keyword",
-              "id": "4",
-              "settings": {
-                "min_doc_count": "1",
-                "order": "desc",
-                "orderBy": "_count",
-                "size": "100"
-              },
-              "type": "terms"
-            },
-            {
-              "fake": true,
-              "field": "@timestamp",
-              "id": "3",
-              "settings": {
-                "interval": "auto",
-                "min_doc_count": 0,
-                "trimEdges": 0
-              },
-              "type": "date_histogram"
-            }
-          ],
-          "hide": false,
-          "metrics": [
-            {
-              "field": "even",
-              "id": "1",
-              "meta": {},
-              "settings": {},
-              "type": "count"
-            }
-          ],
-          "query": "logstash-snmp-* AND event_type:snmp",
-          "refId": "A",
-          "timeField": "@timestamp"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "SN-SNMP-Pdu",
+      "title": "SN-TFTP-Packet",
       "type": "grafana-piechart-panel",
       "valueName": "total"
     },
@@ -1095,10 +1126,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 24,
+        "h": 18,
         "w": 24,
         "x": 0,
-        "y": 53
+        "y": 46
       },
       "id": 20,
       "options": {
@@ -1143,14 +1174,14 @@
               "type": "logs"
             }
           ],
-          "query": "logstash-snmp-* AND event_type:snmp",
+          "query": "logstash-tftp-* AND event_type:tftp",
           "refId": "A",
           "timeField": "@timestamp"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SN-SNMP-EventsList",
+      "title": "SN-TFTP-EventsList",
       "transformations": [
         {
           "id": "filterFieldsByName",
@@ -1160,12 +1191,12 @@
                 "@timestamp",
                 "dest_ip",
                 "dest_port",
+                "proto",
                 "src_ip",
                 "src_port",
-                "snmp.community",
-                "snmp.pdu_type",
-                "snmp.vars",
-                "snmp.version"
+                "tftp.file",
+                "tftp.mode",
+                "tftp.packet"
               ]
             }
           }
@@ -1176,14 +1207,11 @@
             "excludeByName": {},
             "indexByName": {
               "@timestamp": 0,
-              "dest_ip": 4,
-              "dest_port": 5,
-              "proto": 3,
-              "src_ip": 1,
-              "src_port": 2,
-              "ssh.client.software_version": 8,
-              "ssh.server.proto_version": 6,
-              "ssh.server.software_version": 7
+              "dest_ip": 1,
+              "dest_port": 2,
+              "proto": 5,
+              "src_ip": 3,
+              "src_port": 4
             },
             "renameByName": {}
           }
@@ -1224,7 +1252,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "SN-SNMP",
-  "uid": "fU9cU7tGz",
-  "version": 7
+  "title": "SN-TFTP",
+  "uid": "r7beMVtMk",
+  "version": 11
 }
