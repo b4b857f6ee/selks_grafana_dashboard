@@ -36,8 +36,7 @@ v0.1 First release
 - Add Dashboard for service supervision (NOC)
 
 
-What it's look like?
-It's awesome :)
+
 
 ## SN-ALERTS
 
