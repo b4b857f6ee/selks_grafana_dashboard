@@ -23,8 +23,7 @@ Help : If it's not working test a curl on your grafana host in destination of SE
 
 And after import the Dashboard in the SELKS folder of this github :)
 
-Releases notes
-________________________________
+#Releases notes
 v0.1 First release
 
 
@@ -34,6 +33,7 @@ KRB5
 NFS
 RFB
 Improve hunting options
+Add Dashboard for service supervision (NOC)
 
 
 What it's look like?
