@@ -27,13 +27,13 @@ And after import the Dashboard in the SELKS folder of this github :)
 v0.1 First release
 
 
-Todo :
-Add dashboard for :
-KRB5
-NFS
-RFB
-Improve hunting options
-Add Dashboard for service supervision (NOC)
+# Todo :
+- Add dashboard for :
+- KRB5
+- NFS
+- RFB
+- Improve hunting options
+- Add Dashboard for service supervision (NOC)
 
 
 What it's look like?
