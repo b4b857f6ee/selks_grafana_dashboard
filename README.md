@@ -166,3 +166,6 @@ Configure telegraf with influxDB and this script : https://github.com/ratibor78/
 
 ![alt text](https://github.com/b4b857f6ee/selks_grafana_dashboard/blob/main/pictures/SN-VLAN.PNG)
 
+## NOC - Services
+
+![alt text](https://github.com/b4b857f6ee/selks_grafana_dashboard/blob/main/pictures/NOC%20-%20Services%20-1.PNG)
