@@ -52,7 +52,7 @@ v0.1 First release
 - SN-IDS https://grafana.com/grafana/dashboards/13212
 - SN-IKEv2 https://grafana.com/grafana/dashboards/13213
 - SN-KRB5 https://grafana.com/grafana/dashboards/13233
-- SN-NFS 
+- SN-NFS https://grafana.com/grafana/dashboards/13234
 - SN-OVERVIEW https://grafana.com/grafana/dashboards/13214
 - SN-RDP https://grafana.com/grafana/dashboards/13215
 - SN-SIP https://grafana.com/grafana/dashboards/13216
