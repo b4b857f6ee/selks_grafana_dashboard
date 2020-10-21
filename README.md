@@ -54,6 +54,11 @@ v0.1 First release
 - SN-SNMP https://grafana.com/grafana/dashboards/13218
 - SN-SSH https://grafana.com/grafana/dashboards/13219
 - SN-STATS https://grafana.com/grafana/dashboards/13220
+- SN-FLOW https://grafana.com/grafana/dashboards/13210
+- SN-TFTP https://grafana.com/grafana/dashboards/13224
+- SN-TLS https://grafana.com/grafana/dashboards/13225
+- SN-TrafficID https://grafana.com/grafana/dashboards/13226
+- SN-VLAN https://grafana.com/grafana/dashboards/13227
 
 ## SN-ALERTS
 
