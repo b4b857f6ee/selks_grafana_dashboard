@@ -10,7 +10,7 @@ Preparation :
 
 Configuration 
 
-On Grafana Configuration  -> Data Sources -> "Add data source" -> Select in the section "Logging & document databases" Elasticsearch.
+In the Grafana configuration  -> Data Sources -> "Add data source" -> Select in the section "Logging & document databases" Elasticsearch.
 Configure the URL http://SELKSIP:9200/
 Access : Server (default)
 Index name :  logstash-*  (Pattern No pattern)
