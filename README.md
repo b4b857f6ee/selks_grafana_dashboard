@@ -44,7 +44,7 @@ v0.1 First release
 - SN-ALL https://grafana.com/grafana/dashboards/13205
 - SN-ANOMALY https://grafana.com/grafana/dashboards/13206
 - SN-DHCP https://grafana.com/grafana/dashboards/13207
-- SN-DNP3
+- SN-DNP3 https://grafana.com/grafana/dashboards/13232
 - SN-DNS https://grafana.com/grafana/dashboards/13208
 - SN-FILE-Transactions https://grafana.com/grafana/dashboards/13209
 - SN-FLOW https://grafana.com/grafana/dashboards/13210
