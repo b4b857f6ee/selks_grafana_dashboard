@@ -24,13 +24,16 @@ Help : If it's not working test a curl on your grafana host in destination of SE
 And after import the Dashboard in the SELKS folder of this github :)
 
 # Releases notes
+v0.2 Add Dashboard
+- KRB5
+- NFS
+- DNP3
+
 v0.1 First release
 
 
 # Todo :
 - Add dashboard for :
-- KRB5
-- NFS
 - RFB
 - Improve hunting options
 - Add Dashboard for service supervision (NOC)
@@ -41,12 +44,15 @@ v0.1 First release
 - SN-ALL https://grafana.com/grafana/dashboards/13205
 - SN-ANOMALY https://grafana.com/grafana/dashboards/13206
 - SN-DHCP https://grafana.com/grafana/dashboards/13207
+- SN-DNP3
 - SN-DNS https://grafana.com/grafana/dashboards/13208
 - SN-FILE-Transactions https://grafana.com/grafana/dashboards/13209
 - SN-FLOW https://grafana.com/grafana/dashboards/13210
 - SN-HTTP https://grafana.com/grafana/dashboards/13211
 - SN-IDS https://grafana.com/grafana/dashboards/13212
 - SN-IKEv2 https://grafana.com/grafana/dashboards/13213
+- SN-KRB5 
+- SN-NFS 
 - SN-OVERVIEW https://grafana.com/grafana/dashboards/13214
 - SN-RDP https://grafana.com/grafana/dashboards/13215
 - SN-SIP https://grafana.com/grafana/dashboards/13216
@@ -76,6 +82,10 @@ v0.1 First release
 
 ![alt text](https://github.com/b4b857f6ee/selks_grafana_dashboard/blob/main/pictures/SN-DHCP.PNG)
 
+## SN-DNP3
+
+![alt text](https://github.com/b4b857f6ee/selks_grafana_dashboard/blob/main/pictures/SN-DNP3.PNG)
+
 ## SN-DNS
 
 ![alt text](https://github.com/b4b857f6ee/selks_grafana_dashboard/blob/main/pictures/SN-DNS.PNG)
@@ -99,6 +109,14 @@ v0.1 First release
 ## SN-IKEv2
 
 ![alt text](https://github.com/b4b857f6ee/selks_grafana_dashboard/blob/main/pictures/SN-IKEv2.PNG)
+
+## SN-KRB5
+
+![alt text](https://github.com/b4b857f6ee/selks_grafana_dashboard/blob/main/pictures/SN-KRB5.PNG)
+
+## SN-NFS
+
+![alt text](https://github.com/b4b857f6ee/selks_grafana_dashboard/blob/main/pictures/SN-NFS.PNG)
 
 ## SN-OVERVIEW
 
