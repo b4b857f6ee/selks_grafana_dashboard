@@ -128,11 +128,11 @@ v0.1 First release
 
 ## SN-KRB5
 
-![alt text](https://github.com/b4b857f6ee/selks_grafana_dashboard/blob/main/pictures/SN-KRB5.PNG)
+![alt text](https://github.com/b4b857f6ee/selks_grafana_dashboard/blob/main/pictures/SN-KRB5-1.PNG)
 
 ## SN-NFS
 
-![alt text](https://github.com/b4b857f6ee/selks_grafana_dashboard/blob/main/pictures/SN-NFS.PNG)
+![alt text](https://github.com/b4b857f6ee/selks_grafana_dashboard/blob/main/pictures/SN-NFS-1.PNG)
 
 ## SN-OVERVIEW
 
