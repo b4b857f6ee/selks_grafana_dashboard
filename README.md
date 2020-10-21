@@ -27,6 +27,11 @@ And after import the Dashboard in the SELKS folder of this github :)
 
 Configure telegraf with influxDB and this script : https://github.com/ratibor78/srvstatus
 
+Configuration of /opt/srvstatus/settings.ini
+
+[SERVICES]
+name = ssh.service rsyslog.service  suricata.service elasticsearch.service logstash.service kibana.service evebox.service molochviewer-selks.service molochpcapread-selks.service
+
 ## NOC - Services
 
 Grafana Hosted : - https://grafana.com/grafana/dashboards/13235
