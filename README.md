@@ -37,23 +37,23 @@ v0.1 First release
 
 
 ## Grafana hosted
-- https://grafana.com/grafana/dashboards/13204
-- https://grafana.com/grafana/dashboards/13205
-- https://grafana.com/grafana/dashboards/13206
-- https://grafana.com/grafana/dashboards/13207
-- https://grafana.com/grafana/dashboards/13208
-- https://grafana.com/grafana/dashboards/13209
-- https://grafana.com/grafana/dashboards/13210
-- https://grafana.com/grafana/dashboards/13211
-- https://grafana.com/grafana/dashboards/13212
-- https://grafana.com/grafana/dashboards/13213
-- https://grafana.com/grafana/dashboards/13214
-- https://grafana.com/grafana/dashboards/13215
-- https://grafana.com/grafana/dashboards/13216
-- https://grafana.com/grafana/dashboards/13217
-- https://grafana.com/grafana/dashboards/13218
-- https://grafana.com/grafana/dashboards/13219
-- https://grafana.com/grafana/dashboards/13220
+- SN-ALERTS https://grafana.com/grafana/dashboards/13204
+- SN-ALL https://grafana.com/grafana/dashboards/13205
+- SN-ANOMALY https://grafana.com/grafana/dashboards/13206
+- SN-DHCP https://grafana.com/grafana/dashboards/13207
+- SN-DNS https://grafana.com/grafana/dashboards/13208
+- SN-FILE-Transactions https://grafana.com/grafana/dashboards/13209
+- SN-FLOW https://grafana.com/grafana/dashboards/13210
+- SN-HTTP https://grafana.com/grafana/dashboards/13211
+- SN-IDS https://grafana.com/grafana/dashboards/13212
+- SN-IKEv2 https://grafana.com/grafana/dashboards/13213
+- SN-OVERVIEW https://grafana.com/grafana/dashboards/13214
+- SN-RDP https://grafana.com/grafana/dashboards/13215
+- SN-SIP https://grafana.com/grafana/dashboards/13216
+- SN-SMB https://grafana.com/grafana/dashboards/13217
+- SN-SNMP https://grafana.com/grafana/dashboards/13218
+- SN-SSH https://grafana.com/grafana/dashboards/13219
+- SN-STATS https://grafana.com/grafana/dashboards/13220
 
 ## SN-ALERTS
 
