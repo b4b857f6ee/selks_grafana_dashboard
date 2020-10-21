@@ -1,4 +1,4 @@
-# Dashboard SELKS for Grafana
+# Grafana Dashboards for SELKS
 
 You already have :
 - Grafana 7+  https://grafana.com/
@@ -10,7 +10,7 @@ Preparation :
 
 Configuration 
 
-On Grafana Configuration  -> Data Sources -> "Add data source" -> Select in the section "Logging & document databases" Elasticsearch.
+In the Grafana configuration  -> Data Sources -> "Add data source" -> Select in the section "Logging & document databases" Elasticsearch.
 Configure the URL http://SELKSIP:9200/
 Access : Server (default)
 Index name :  logstash-*  (Pattern No pattern)
@@ -36,7 +36,29 @@ v0.1 First release
 - Add Dashboard for service supervision (NOC)
 
 
-
+## Grafana hosted
+- SN-ALERTS https://grafana.com/grafana/dashboards/13204
+- SN-ALL https://grafana.com/grafana/dashboards/13205
+- SN-ANOMALY https://grafana.com/grafana/dashboards/13206
+- SN-DHCP https://grafana.com/grafana/dashboards/13207
+- SN-DNS https://grafana.com/grafana/dashboards/13208
+- SN-FILE-Transactions https://grafana.com/grafana/dashboards/13209
+- SN-FLOW https://grafana.com/grafana/dashboards/13210
+- SN-HTTP https://grafana.com/grafana/dashboards/13211
+- SN-IDS https://grafana.com/grafana/dashboards/13212
+- SN-IKEv2 https://grafana.com/grafana/dashboards/13213
+- SN-OVERVIEW https://grafana.com/grafana/dashboards/13214
+- SN-RDP https://grafana.com/grafana/dashboards/13215
+- SN-SIP https://grafana.com/grafana/dashboards/13216
+- SN-SMB https://grafana.com/grafana/dashboards/13217
+- SN-SNMP https://grafana.com/grafana/dashboards/13218
+- SN-SSH https://grafana.com/grafana/dashboards/13219
+- SN-STATS https://grafana.com/grafana/dashboards/13220
+- SN-FLOW https://grafana.com/grafana/dashboards/13210
+- SN-TFTP https://grafana.com/grafana/dashboards/13224
+- SN-TLS https://grafana.com/grafana/dashboards/13225
+- SN-TrafficID https://grafana.com/grafana/dashboards/13226
+- SN-VLAN https://grafana.com/grafana/dashboards/13227
 
 ## SN-ALERTS
 
