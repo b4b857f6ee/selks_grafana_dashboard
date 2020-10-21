@@ -66,6 +66,10 @@ v0.1 First release
 - SN-TrafficID https://grafana.com/grafana/dashboards/13226
 - SN-VLAN https://grafana.com/grafana/dashboards/13227
 
+## NOC configuration
+
+Configure telegraf with influxDB and this script : https://github.com/ratibor78/srvstatus
+
 ## SN-ALERTS
 
 ![alt text](https://github.com/b4b857f6ee/selks_grafana_dashboard/blob/main/pictures/SN-ALERTS.PNG)
