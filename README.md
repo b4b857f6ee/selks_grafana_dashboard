@@ -1,4 +1,4 @@
-# Dashboard SELKS for Grafana
+# Grafana Dashboards for SELKS
 
 You already have :
 - Grafana 7+  https://grafana.com/
