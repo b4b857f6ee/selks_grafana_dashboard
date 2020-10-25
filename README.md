@@ -36,7 +36,7 @@ name = ssh.service rsyslog.service  suricata.service elasticsearch.service logst
 
 Grafana Hosted : - https://grafana.com/grafana/dashboards/13235
 
-![alt text](https://github.com/b4b857f6ee/selks_grafana_dashboard/blob/main/pictures/NOC%20-%20Services%20-1.PNG)
+![alt text](https://github.com/b4b857f6ee/selks_grafana_dashboard/blob/main/pictures/NOC%20-%20Services%20-5.PNG)
 
 # Releases notes
 
