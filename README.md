@@ -39,6 +39,10 @@ Grafana Hosted : - https://grafana.com/grafana/dashboards/13235
 ![alt text](https://github.com/b4b857f6ee/selks_grafana_dashboard/blob/main/pictures/NOC%20-%20Services%20-1.PNG)
 
 # Releases notes
+
+v0.3 Update Dashboard
+- NOC - Services -> Add service visualisation and services over time.
+
 v0.2 Add Dashboard
 - KRB5
 - NFS
