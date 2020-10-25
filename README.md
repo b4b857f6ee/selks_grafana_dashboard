@@ -23,11 +23,27 @@ Help : If it's not working test a curl on your grafana host in destination of SE
 
 And after import the Dashboard in the SELKS folder of this github :)
 
+## NOC configuration
+
+Configure telegraf with influxDB and this script : https://github.com/ratibor78/srvstatus
+
+Configuration of /opt/srvstatus/settings.ini
+
+[SERVICES]
+name = ssh.service rsyslog.service  suricata.service elasticsearch.service logstash.service kibana.service evebox.service molochviewer-selks.service molochpcapread-selks.service
+
+## NOC - Services
+
+Grafana Hosted : - https://grafana.com/grafana/dashboards/13235
+
+![alt text](https://github.com/b4b857f6ee/selks_grafana_dashboard/blob/main/pictures/NOC%20-%20Services%20-1.PNG)
+
 # Releases notes
 v0.2 Add Dashboard
 - KRB5
 - NFS
 - DNP3
+- NOC - Services
 
 v0.1 First release
 
@@ -65,10 +81,6 @@ v0.1 First release
 - SN-TLS https://grafana.com/grafana/dashboards/13225
 - SN-TrafficID https://grafana.com/grafana/dashboards/13226
 - SN-VLAN https://grafana.com/grafana/dashboards/13227
-
-## NOC configuration
-
-Configure telegraf with influxDB and this script : https://github.com/ratibor78/srvstatus
 
 ## SN-ALERTS
 
@@ -116,11 +128,11 @@ Configure telegraf with influxDB and this script : https://github.com/ratibor78/
 
 ## SN-KRB5
 
-![alt text](https://github.com/b4b857f6ee/selks_grafana_dashboard/blob/main/pictures/SN-KRB5.PNG)
+![alt text](https://github.com/b4b857f6ee/selks_grafana_dashboard/blob/main/pictures/SN-KRB5-1.PNG)
 
 ## SN-NFS
 
-![alt text](https://github.com/b4b857f6ee/selks_grafana_dashboard/blob/main/pictures/SN-NFS.PNG)
+![alt text](https://github.com/b4b857f6ee/selks_grafana_dashboard/blob/main/pictures/SN-NFS-1.PNG)
 
 ## SN-OVERVIEW
 
