@@ -56,8 +56,6 @@ v0.1 First release
 - Add dashboard for :
 - RFB
 - Improve hunting options
-- Add Dashboard for service supervision (NOC)
-
 
 ## Grafana hosted
 - SN-ALERTS https://grafana.com/grafana/dashboards/13204
